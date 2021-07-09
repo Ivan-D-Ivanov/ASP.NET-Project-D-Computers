@@ -1,0 +1,16 @@
+﻿
+@model DavinoComputers.Web.ViewModels.ProductViewModels.AddProductInputModel
+@{
+    this.ViewData["Title"] = "Add Product";
+}
+
+<h1 style="color:white">Create New Product</h1>
+<form method="post" class="col-md-6 offset-3">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name" style="color:white"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <input type="submit" class="btn btn-success btn-lg"/>
+</form>
