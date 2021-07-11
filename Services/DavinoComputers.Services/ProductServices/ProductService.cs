@@ -46,5 +46,49 @@
                 Name = c.Name,
             });
         }
+
+        public IndexProductViewModel GetProducById(int id)
+        {
+            var product = this.productsRepository.All().FirstOrDefault(p => p.Id == id);
+
+            if (product == null)
+            {
+                return null;
+            }
+
+            return new IndexProductViewModel
+            {
+                Id = product.Id,
+                Model = product.Model,
+                Brand = product.Brand,
+                Description = product.Description,
+                IsAvailable = product.IsAvailable,
+                Rate = product.Rate,
+                Price = product.Price,
+                ImageUrl = product.ImageUrl,
+            };
+        }
+
+        public IEnumerable<ProductInListViewModel> ListAllProducts(int page, int productsTake)
+        {
+            var allProducts = this.productsRepository.AllAsNoTracking()
+                .OrderByDescending(p => p.CreatedOn)
+                .Skip((page - 1) * productsTake).Take(productsTake)
+                .Select(p => new ProductInListViewModel
+                {
+                    Id = p.Id,
+                    Model = p.Model,
+                    Brand = p.Brand,
+                    Description = p.Description,
+                    Rate = p.Rate,
+                    Price = p.Price,
+                    ImageUrl = p.ImageUrl,
+                    IsAvailable = p.IsAvailable,
+                    CategoryName = p.SubCategory.Name,
+                })
+                .ToList();
+
+            return allProducts;
+        }
     }
 }

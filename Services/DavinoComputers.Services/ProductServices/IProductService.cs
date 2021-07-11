@@ -8,8 +8,12 @@
 
     public interface IProductService
     {
+        IEnumerable<ProductInListViewModel> ListAllProducts(int id,int productsTake);
+
         Task CreateProduct(AddProductInputModel product);
 
         IEnumerable<ProductSubCategoryViewModel> GetCategories();
+
+        IndexProductViewModel GetProducById(int id);
     }
 }

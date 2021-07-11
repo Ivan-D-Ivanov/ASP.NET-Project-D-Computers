@@ -1,0 +1,15 @@
+﻿@model DavinoComputers.Web.ViewModels.ProductViewModels.IndexProductViewModel
+@{
+    this.ViewData["Title"] = "Product Index";
+}
+
+
+<div class="card mb-3">
+    <img src="@Model.ImageUrl" class="card-img-top m-1 p-5">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Brand @Model.Model</h5>
+        <p class="card-text">@Model.Description</p>
+        <p class="card-text"><small class="text-muted">@Model.Rate</small></p>
+        <h5 class="card-title">@Model.Price</h5>
+    </div>
+</div>

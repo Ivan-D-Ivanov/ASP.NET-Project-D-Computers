@@ -1,0 +1,22 @@
+﻿@model DavinoComputers.Web.ViewModels.ProductViewModels.ListingProductViewModel
+@{
+    this.ViewData["Title"] = "All Products";
+}
+
+<h1 style="color:white">All Products</h1>
+<hr />
+<div class="row">
+    @foreach (var product in Model.Products)
+    {
+        <div class="media col-md-4 ">
+            <img src="@product.ImageUrl" width="120" class="mr-3 p-2">
+            <div class="media-body align-text-top">
+                <a href="/Products/Index?id=@product.Id" class="mt-0" style="color:white">@product.Brand @product.Model</a>
+                <h6 style="color:white">@product.CategoryName</h6>
+            </div>
+        </div>
+    }
+</div>
+
+
+

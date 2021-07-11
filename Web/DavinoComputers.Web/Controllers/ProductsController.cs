@@ -44,5 +44,27 @@
 
             return this.Redirect("/");
         }
+
+        public IActionResult All(int id = 1)
+        {
+            var productsListingViewModel = new ListingProductViewModel
+            {
+                Products = this.productService.ListAllProducts(id, 12),
+                Page = id,
+            };
+            return this.View(productsListingViewModel);
+        }
+
+        public IActionResult Index(int id)
+        {
+            var product = this.productService.GetProducById(id);
+
+            if (product == null)
+            {
+                return this.Redirect("/Products/All");
+            }
+
+            return this.View(product);
+        }
     }
 }
