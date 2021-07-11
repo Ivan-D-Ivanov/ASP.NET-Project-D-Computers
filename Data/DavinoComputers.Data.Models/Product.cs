@@ -18,17 +18,21 @@
         }
 
         [Required]
-        [MaxLength(MaxProductNameLength)]
-        public string Name { get; set; }
+        [MaxLength(MaxProductModelLength)]
+        public string Model { get; set; }
+
+        [Required]
+        [MaxLength(MaxProductModelLength)]
+        public string Brand { get; set; }
+
+        [Required]
+        [MaxLength(MaxProductDescriptionLength)]
+        public string Description { get; set; }
 
         public decimal Price { get; set; }
 
         [Range(MinProductRateLength,MaxProductRateLength)]
         public int Rate { get; set; }
-
-        [Required]
-        [MaxLength(MaxProductNameLength)]
-        public string Brand { get; set; }
 
         [Required]
         [Url]

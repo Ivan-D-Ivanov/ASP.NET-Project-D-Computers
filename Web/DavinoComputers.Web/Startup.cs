@@ -11,6 +11,7 @@
     using DavinoComputers.Services.HomeServices;
     using DavinoComputers.Services.Mapping;
     using DavinoComputers.Services.Messaging;
+    using DavinoComputers.Services.ProductServices;
     using DavinoComputers.Web.ViewModels;
 
     using Microsoft.AspNetCore.Builder;
@@ -65,6 +66,7 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IHomeService, HomeService>();
+            services.AddTransient<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

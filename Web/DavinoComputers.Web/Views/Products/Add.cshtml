@@ -4,7 +4,7 @@
     this.ViewData["Title"] = "Add Product";
 }
 
-<h1 style="color:white">Create New Product</h1>
+@*<h1 style="color:white">Create New Product</h1>
 <form method="post" class="col-md-6 offset-3">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
@@ -13,4 +13,55 @@
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <input type="submit" class="btn btn-success btn-lg"/>
-</form>
+</form>*@
+
+<div class="row">
+    <div class="offset-md-3 col-md-6 col-sm-12">
+        <form method="post">
+            <h1 style="color:white">Create New Product</h1>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Model" style="color:white"></label>
+                <input asp-for="Model" class="form-control" id="exampleFormControlInput1">
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Brand" style="color:white"></label>
+                <input asp-for="Brand" class="form-control" id="exampleFormControlInput1">
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" style="color:white"></label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" style="color:white"></label>
+                <input asp-for="Price" class="form-control" id="exampleFormControlInput1" placeholder="Cash in BGN..">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsAvailable" style="color:white"></label>
+                <select asp-for="IsAvailable" class="form-control">
+                    <option value=@true>Yes</option>
+                    <option value=@false>No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" style="color:white"></label>
+                <input asp-for="ImageUrl" class="form-control" id="exampleFormControlInput1" placeholder="The shortest URL for the image..">
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubCategoryId" style="color:white"></label>
+                <select asp-for="SubCategoryId" class="form-control">
+                    @foreach (var subCategory in Model.SubCategories)
+                    {
+                        <option value="@subCategory.Id">@subCategory.Name</option>
+                    }
+                </select>
+            </div>
+            <input type="submit" class="btn btn-success btn-lg" />
+        </form>
+    </div>
+</div>
