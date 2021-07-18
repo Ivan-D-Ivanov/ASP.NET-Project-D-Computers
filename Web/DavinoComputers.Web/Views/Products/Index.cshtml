@@ -5,11 +5,12 @@
 
 
 <div class="card mb-3">
-    <img src="@Model.ImageUrl" class="card-img-top m-1 p-5">
+    <img src="@Model.ImageUrl" class="card-img-top m-1 p-5 w-50 mx-auto">
     <div class="card-body">
-        <h5 class="card-title">@Model.Brand @Model.Model</h5>
+        <h5 class="card-title border-bottom">@Model.Brand @Model.Model</h5>
         <p class="card-text">@Model.Description</p>
         <p class="card-text"><small class="text-muted">@Model.Rate</small></p>
-        <h5 class="card-title">@Model.Price</h5>
+        <h5 class="card-title border-bottom">Price: @Model.Price BGN </h5>
     </div>
 </div>
+

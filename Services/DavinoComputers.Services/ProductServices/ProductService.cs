@@ -22,7 +22,6 @@
 
         public async Task CreateProduct(AddProductInputModel product)
         {
-
             var newProduct = new Product
             {
                 Model = product.Model,
@@ -36,6 +35,14 @@
 
             await this.productsRepository.AddAsync(newProduct);
             await this.productsRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<string> GetBrands()
+        {
+            return this.productsRepository.AllAsNoTracking()
+                .Select(p => p.Brand)
+                .Distinct()
+                .ToList();
         }
 
         public IEnumerable<ProductSubCategoryViewModel> GetCategories()
@@ -69,11 +76,23 @@
             };
         }
 
-        public IEnumerable<ProductInListViewModel> ListAllProducts(int page, int productsTake)
+        public IEnumerable<ProductInListViewModel> ListAllProducts(string searchTerm, string brand)
         {
-            var allProducts = this.productsRepository.AllAsNoTracking()
+            var productQuery = this.productsRepository.AllAsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                productQuery = productQuery.Where(p =>
+                (p.Brand + " " + p.Model).ToLower().Contains(searchTerm.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(brand))
+            {
+                productQuery = productQuery.Where(p => p.Brand == brand);
+            }
+
+            var products = productQuery
                 .OrderByDescending(p => p.CreatedOn)
-                .Skip((page - 1) * productsTake).Take(productsTake)
                 .Select(p => new ProductInListViewModel
                 {
                     Id = p.Id,
@@ -88,7 +107,8 @@
                 })
                 .ToList();
 
-            return allProducts;
+            return products;
         }
+
     }
 }

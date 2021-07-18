@@ -42,15 +42,16 @@
 
             await this.productService.CreateProduct(product);
 
-            return this.Redirect("/");
+            return this.RedirectToAction(nameof(this.All));
         }
 
-        public IActionResult All(int id = 1)
+        public IActionResult All(string searchTerm, string brand)
         {
             var productsListingViewModel = new ListingProductViewModel
             {
-                Products = this.productService.ListAllProducts(id, 12),
-                Page = id,
+                Products = this.productService.ListAllProducts(searchTerm, brand),
+                SearchTerm = searchTerm,
+                Brands = this.productService.GetBrands(),
             };
             return this.View(productsListingViewModel);
         }

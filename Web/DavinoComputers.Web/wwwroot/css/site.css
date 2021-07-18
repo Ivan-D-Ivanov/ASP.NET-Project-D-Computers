@@ -63,8 +63,6 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-image:url(/css/61c90566df1149b1f099c607548abcaa.jpg);
-    background-size: cover;
 }
 
 .footer {

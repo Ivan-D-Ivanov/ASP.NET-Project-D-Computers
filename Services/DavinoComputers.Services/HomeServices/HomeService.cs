@@ -9,13 +9,12 @@
     using DavinoComputers.Data.Common.Repositories;
     using DavinoComputers.Data.Models;
     using DavinoComputers.Web.ViewModels.HomeViewModels;
+    using DavinoComputers.Web.ViewModels.ProductViewModels;
 
     public class HomeService : IHomeService
     {
         private readonly IDeletableEntityRepository<Category> categoryRepository;
         private readonly IDeletableEntityRepository<SubCategory> subCategoryRepository;
-        private readonly IDeletableEntityRepository<Image> imageRepository;
-        private readonly IRepository<Comment> commentsRepository;
         private readonly IDeletableEntityRepository<Product> productsRepository;
 
 
@@ -27,23 +26,36 @@
             IDeletableEntityRepository<SubCategory> subCategoryRepository)
         {
             this.categoryRepository = categoryRepository;
-            this.commentsRepository = commentsRepository;
             this.productsRepository = productsRepository;
-            this.imageRepository = imageRepository;
             this.subCategoryRepository = subCategoryRepository;
         }
 
-        public HomeViewModel GetCounts()
+        public int TotalProducts()
         {
-            var allCounts = new HomeViewModel
-            {
-                CategoriesCounts = this.categoryRepository.AllAsNoTracking().Count(),
-                SubCategoriesCounts = this.subCategoryRepository.AllAsNoTracking().Count(),
-                CommentsCounts = this.commentsRepository.AllAsNoTracking().Count(),
-                ImagesCounts = this.imageRepository.AllAsNoTracking().Count(),
-                ProductsCounts = this.productsRepository.AllAsNoTracking().Count(),
-            };
-            return allCounts;
+            var allProducts = this.productsRepository.AllAsNoTracking().Count();
+            return allProducts;
+        }
+
+        public List<ProductInListViewModel> ListProductsForCarousel()
+        {
+            var lastThreeProducts = this.productsRepository.AllAsNoTracking()
+                .OrderByDescending(p => p)
+                .Take(3)
+                .Select(p => new ProductInListViewModel
+                {
+                    Id = p.Id,
+                    Model = p.Model,
+                    Brand = p.Brand,
+                    IsAvailable = p.IsAvailable,
+                    Description = p.Description,
+                    ImageUrl = p.ImageUrl,
+                    Rate = p.Rate,
+                    Price = p.Price,
+                    CategoryName = p.SubCategory.Name,
+                })
+                .ToList();
+
+            return lastThreeProducts;
         }
     }
 }

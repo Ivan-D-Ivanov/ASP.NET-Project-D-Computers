@@ -4,7 +4,7 @@
 
     using DavinoComputers.Services.HomeServices;
     using DavinoComputers.Web.ViewModels;
-
+    using DavinoComputers.Web.ViewModels.HomeViewModels;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
@@ -18,8 +18,13 @@
 
         public IActionResult Index()
         {
-            var viewModel = this.homeService.GetCounts();
-            return this.View(viewModel);
+            var totalProducts = this.homeService.TotalProducts();
+            var lastThree = this.homeService.ListProductsForCarousel();
+            return this.View(new HomeViewModel
+            {
+                ProductsCounts = totalProducts,
+                CarouselProducts = lastThree,
+            });
         }
 
         public IActionResult Privacy()
