@@ -26,6 +26,8 @@
 
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<PcBuild> PcBuilds { get; set; }
+
         public DbSet<Image> Images { get; set; }
 
         public DbSet<Category> Categories { get; set; }

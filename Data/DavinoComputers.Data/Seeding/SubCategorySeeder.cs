@@ -1,11 +1,10 @@
 ﻿namespace DavinoComputers.Data.Seeding
 {
-    using DavinoComputers.Data.Models;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
+
+    using DavinoComputers.Data.Models;
 
     public class SubCategorySeeder : ISeeder
     {
