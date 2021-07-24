@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace DavinoComputers.Data.Migrations
+﻿namespace DavinoComputers.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddedCategoryServiceAndPcBuildEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,7 +34,7 @@ namespace DavinoComputers.Data.Migrations
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                 },
                 constraints: table =>
                 {
@@ -45,7 +46,7 @@ namespace DavinoComputers.Data.Migrations
                 columns: table => new
                 {
                     PcBuildsId = table.Column<int>(type: "int", nullable: false),
-                    ProductsId = table.Column<int>(type: "int", nullable: false)
+                    ProductsId = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {

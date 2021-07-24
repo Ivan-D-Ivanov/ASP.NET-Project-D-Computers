@@ -11,7 +11,6 @@
         public IndexProductViewModel()
         {
             this.Comments = new HashSet<Comment>();
-            this.Images = new HashSet<Image>();
         }
 
         public int Id { get; set; }
@@ -31,7 +30,5 @@
         public bool IsAvailable { get; set; }
 
         public IEnumerable<Comment> Comments { get; set; }
-
-        public IEnumerable<Image> Images { get; set; }
     }
 }

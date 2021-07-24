@@ -8,6 +8,7 @@
     using DavinoComputers.Data.Models;
     using DavinoComputers.Data.Repositories;
     using DavinoComputers.Data.Seeding;
+    using DavinoComputers.Services.CategoryServices;
     using DavinoComputers.Services.HomeServices;
     using DavinoComputers.Services.Mapping;
     using DavinoComputers.Services.Messaging;
@@ -67,6 +68,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryService, CategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

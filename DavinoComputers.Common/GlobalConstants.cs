@@ -17,5 +17,8 @@
         public const int MaxProductDescriptionLength = 1000;
         public const int MinProductRateLength = 1;
         public const int MaxProductRateLength = 10;
+
+        public const int MinPCBuildNameLength = 5;
+        public const int MaxPcBuildNameLength = 40;
     }
 }

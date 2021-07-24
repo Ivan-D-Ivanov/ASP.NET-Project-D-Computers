@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
     using DavinoComputers.Data.Common.Models;
 
@@ -15,6 +14,7 @@
         {
             this.Comments = new HashSet<Comment>();
             this.Images = new HashSet<Image>();
+            this.PcBuilds = new HashSet<PcBuild>();
         }
 
         [Required]
@@ -47,5 +47,7 @@
         public virtual IEnumerable<Comment> Comments { get; set; }
 
         public virtual IEnumerable<Image> Images { get; set; }
+
+        public virtual IEnumerable<PcBuild> PcBuilds { get; set; }
     }
 }

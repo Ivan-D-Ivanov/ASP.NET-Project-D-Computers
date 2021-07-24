@@ -8,14 +8,12 @@
 
 
 <form method="get">
-    <div class="row mb-3 border-bottom">
-        <div class="col-md-3">
+    <div class="row float-left mb-3 mr-2 border-bottom">
+        <div class="col-12">
             <div class="form-group">
                 <label asp-for="SearchTerm"></label>
                 <input asp-for="SearchTerm" class="form-control" placeholder="AMD, Intel etc..." />
             </div>
-        </div>
-        <div class="col-md-3">
             <div class="form-group">
                 <label asp-for="Brand"></label>
                 <select asp-for="Brand" class="form-control">
@@ -23,6 +21,26 @@
                     @foreach (var brand in Model.Brands)
                     {
                         <option value="@brand">@brand</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <select asp-for="Category" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category">@category</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubCategory"></label>
+                <select asp-for="SubCategory" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var subCategory in Model.SubCategories)
+                    {
+                        <option value="@subCategory">@subCategory</option>
                     }
                 </select>
             </div>
@@ -34,7 +52,7 @@
 <div class="row">
     @foreach (var product in Model.Products)
     {
-        <div class="media col-md-4 mb-5">
+        <div class="media col-md-4 col-lg-4 mb-5">
             <img src="@product.ImageUrl" width="140" class="mr-3 p-2">
             <div class="media-body align-text-top">
                 <a href="/Products/Index?id=@product.Id" class="mt-0" style="color:black">@product.Brand @product.Model</a>

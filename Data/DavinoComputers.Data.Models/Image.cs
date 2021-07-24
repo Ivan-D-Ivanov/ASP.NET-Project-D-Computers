@@ -1,8 +1,6 @@
 ﻿namespace DavinoComputers.Data.Models
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     using DavinoComputers.Data.Common.Models;
 
@@ -18,5 +16,9 @@
         public virtual Product Product { get; set; }
 
         public string Extension { get; set; }
+
+        public int PcBuildId { get; set; }
+
+        public PcBuild PcBuild { get; set; }
     }
 }

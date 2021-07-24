@@ -1,21 +1,17 @@
 ﻿namespace DavinoComputers.Services.ProductServices
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
     using System.Threading.Tasks;
-    using DavinoComputers.Data.Models;
+
     using DavinoComputers.Web.ViewModels.ProductViewModels;
 
     public interface IProductService
     {
-        IEnumerable<string> GetBrands();
-
-        IEnumerable<ProductInListViewModel> ListAllProducts(string searchTerm, string brand);
+        IEnumerable<ProductInListViewModel> ListAllProducts(string searchTerm, string brand, string category, string subCategory);
 
         Task CreateProduct(AddProductInputModel product);
 
-        IEnumerable<ProductSubCategoryViewModel> GetCategories();
+        IEnumerable<string> GetBrands();
 
         IndexProductViewModel GetProducById(int id);
     }

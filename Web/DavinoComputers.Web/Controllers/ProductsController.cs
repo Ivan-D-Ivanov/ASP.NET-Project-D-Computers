@@ -1,42 +1,46 @@
 ﻿namespace DavinoComputers.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using DavinoComputers.Data.Models;
+
+    using DavinoComputers.Services.CategoryServices;
     using DavinoComputers.Services.ProductServices;
     using DavinoComputers.Web.ViewModels.ProductViewModels;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class ProductsController : BaseController
     {
         private readonly IProductService productService;
+        private readonly ICategoryService categoryService;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, ICategoryService categoryService)
         {
             this.productService = productService;
+            this.categoryService = categoryService;
         }
 
+        [Authorize]
         public IActionResult Add()
         {
             return this.View(new AddProductInputModel
             {
-                SubCategories = this.productService.GetCategories(),
+                SubCategories = this.categoryService.GetSubCategories(),
             });
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add(AddProductInputModel product)
         {
-            if (!this.productService.GetCategories().Any(c => c.Id == product.SubCategoryId))
+            if (!this.categoryService.GetSubCategories().Any(c => c.Id == product.SubCategoryId))
             {
                 this.ModelState.AddModelError(nameof(product.SubCategoryId), "This kind of category doesn't exist");
             }
 
             if (!this.ModelState.IsValid)
             {
-                product.SubCategories = this.productService.GetCategories();
+                product.SubCategories = this.categoryService.GetSubCategories();
                 return this.View(product);
             }
 
@@ -45,13 +49,15 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        public IActionResult All(string searchTerm, string brand)
+        public IActionResult All(string searchTerm, string brand, string category, string subCategory)
         {
             var productsListingViewModel = new ListingProductViewModel
             {
-                Products = this.productService.ListAllProducts(searchTerm, brand),
+                Products = this.productService.ListAllProducts(searchTerm, brand, category, subCategory),
                 SearchTerm = searchTerm,
                 Brands = this.productService.GetBrands(),
+                Categories = this.categoryService.GetCategories(),
+                SubCategories = this.categoryService.GetSubCategories().Select(s => s.Name),
             };
             return this.View(productsListingViewModel);
         }
