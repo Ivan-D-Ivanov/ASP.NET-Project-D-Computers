@@ -69,5 +69,11 @@
             };
             return this.View(listPcBuilds);
         }
+
+        public IActionResult Edit(string id)
+        {
+            var pcbuild = this.pcbuildService.GetPcBuildById(id);
+            return this.View();
+        }
     }
 }

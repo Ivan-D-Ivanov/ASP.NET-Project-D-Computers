@@ -22,5 +22,7 @@
         Task CreatePcBuild(AddPcBuildInputModel pcbuild);
 
         IEnumerable<PcBuildInListModel> ListAllPcBuilds();
+
+        AddPcBuildInputModel GetPcBuildById(string id);
     }
 }

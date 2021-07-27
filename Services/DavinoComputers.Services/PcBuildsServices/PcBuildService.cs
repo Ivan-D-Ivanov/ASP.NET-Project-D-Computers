@@ -52,6 +52,12 @@
             await this.pcbuildRepo.SaveChangesAsync();
         }
 
+        public AddPcBuildInputModel GetPcBuildById(string id)
+        {
+            //To Implement by autoMapper!!!
+            return new AddPcBuildInputModel();
+        }
+
         public IEnumerable<PcBuildProductsInputModel> GetComputerCaseProducts()
         {
             return this.productRepo.All()

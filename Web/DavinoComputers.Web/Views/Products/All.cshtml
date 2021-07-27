@@ -52,14 +52,19 @@
 <div class="row">
     @foreach (var product in Model.Products)
     {
-        <div class="media col-md-6 col-lg-4 col-sm-6 mb-4">
-                <img src="@product.ImageUrl" class="mr-3 p-2 w-50 mx-auto">
-                <div class="media-body align-text-top">
-                    <a href="/products/index?id=@product.Id" class="mt-0" style="color:black">@product.Brand @product.Model</a>
-                    <p class="mt-2"><small class="text-muted"> - @product.CategoryName</small></p>
-                    <h5 class="border-bottom">@product.Price BGN</h5>
-                </div>
-            </div>
+    <div class="media col-md-6 col-lg-4 col-sm-6 mb-4">
+        <img src="@product.ImageUrl" class="mr-3 p-2 w-50 mx-auto">
+        <div class="media-body align-text-top">
+            <a href="/products/index?id=@product.Id" class="mt-0" style="color:black">@product.Brand @product.Model</a>
+            <p class="mt-2"><small class="text-muted"> - @product.CategoryName</small></p>
+            <h5 class="border-bottom">@product.Price BGN</h5>
+        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
+            <a class="btn btn-warning btn-sm" asp-area="" asp-controller="Products" asp-action="Edit" role="button">Edit</a>
+            <a class="btn btn-danger btn-sm" asp-area="" asp-controller="Products" asp-action="Delete" role="button">Delete</a>
+        }
+        </div>
+    </div>
     }
 </div>
 
