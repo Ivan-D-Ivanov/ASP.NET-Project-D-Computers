@@ -60,5 +60,14 @@
 
             return this.Redirect("/");
         }
+
+        public IActionResult All()
+        {
+            var listPcBuilds = new ListingPcBuildsViewModel
+            {
+                PcBuilds = this.pcbuildService.ListAllPcBuilds(),
+            };
+            return this.View(listPcBuilds);
+        }
     }
 }

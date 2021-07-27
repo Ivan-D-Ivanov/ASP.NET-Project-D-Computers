@@ -52,17 +52,19 @@
 <div class="row">
     @foreach (var product in Model.Products)
     {
-        <div class="media col-md-6 col-lg-4 col-sm-6 mb-5">
-            <img src="@product.ImageUrl" class="mr-3 p-2 w-50 mx-auto">
-            <div class="media-body align-text-top">
-                <a href="/Products/Index?id=@product.Id" class="mt-0" style="color:black">@product.Brand @product.Model</a>
-                <h6 class="mt-2">@product.CategoryName</h6>
-                <h5 class="border-bottom">@product.Price BGN</h5>
+        <div class="media col-md-6 col-lg-4 col-sm-6 mb-4">
+                <img src="@product.ImageUrl" class="mr-3 p-2 w-50 mx-auto">
+                <div class="media-body align-text-top">
+                    <a href="/products/index?id=@product.Id" class="mt-0" style="color:black">@product.Brand @product.Model</a>
+                    <p class="mt-2"><small class="text-muted"> - @product.CategoryName</small></p>
+                    <h5 class="border-bottom">@product.Price BGN</h5>
+                </div>
             </div>
-        </div>
     }
 </div>
-<div ></div>
+
+<div class="mb-2"></div>
+
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <li class="page-item disabled">

@@ -7,6 +7,7 @@
     using DavinoComputers.Data.Common.Repositories;
     using DavinoComputers.Data.Models;
     using DavinoComputers.Web.ViewModels.PcBuildViewModels;
+    using DavinoComputers.Web.ViewModels.ProductViewModels;
 
     public class PcBuildService : IPcBuildService
     {
@@ -127,6 +128,30 @@
                      Brand = p.Brand,
                  })
                  .ToList();
+        }
+
+        public IEnumerable<PcBuildInListModel> ListAllPcBuilds()
+        {
+            return this.pcbuildRepo.AllAsNoTracking()
+                .Select(pc => new PcBuildInListModel
+                {
+                     Id = pc.Id,
+                     Name = pc.Name,
+                     Description = pc.Description,
+                     IsAvailable = pc.IsAvailable,
+                     ImageUrl = pc.ImageUrl,
+                     Rate = pc.Rate,
+                     Price = pc.Price,
+                     Products = pc.Products.Select(p => new ProductInListViewModel
+                     {
+                         Id = p.Id,
+                         Model = p.Model,
+                         Brand = p.Brand,
+                         Description = p.Description,
+                         ImageUrl = p.ImageUrl,
+                     }),
+                })
+                .ToList();
         }
     }
 }

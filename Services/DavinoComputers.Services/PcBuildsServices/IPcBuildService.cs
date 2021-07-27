@@ -20,5 +20,7 @@
         IEnumerable<PcBuildProductsInputModel> GetComputerCaseProducts();
 
         Task CreatePcBuild(AddPcBuildInputModel pcbuild);
+
+        IEnumerable<PcBuildInListModel> ListAllPcBuilds();
     }
 }

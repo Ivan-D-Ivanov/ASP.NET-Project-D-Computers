@@ -1,0 +1,25 @@
+﻿@model ListingPcBuildsViewModel
+@{
+    this.ViewData["Title"] = "All PcBuilds";
+}
+
+
+<h1 class="text-center">All Pc Builds</h1>
+<hr />
+
+<div class="row">
+    @foreach (var pcbuilds in Model.PcBuilds)
+    {
+        <div class="media col-md-6 col-lg-4 col-sm-6 mb-4">
+            <img src="@pcbuilds.ImageUrl" class="mr-3 p-2 w-50 mx-auto">
+            <div class="media-body align-text-top">
+                <a href="/PcBuilds/index?id=@pcbuilds.Id" class="mt-0 font-weight-bold" style="color:black">@pcbuilds.Name</a>
+                @foreach (var product in pcbuilds.Products)
+                {
+                    <p><small class="text-muted"> - @product.Brand @product.Model</small></p>
+                }
+                <h5 class="border-bottom">@pcbuilds.Price BGN</h5>
+            </div>
+        </div>
+    }
+</div>
