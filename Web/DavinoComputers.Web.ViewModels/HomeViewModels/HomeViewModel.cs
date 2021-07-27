@@ -1,6 +1,7 @@
 ﻿namespace DavinoComputers.Web.ViewModels.HomeViewModels
 {
     using System.Collections.Generic;
+
     using DavinoComputers.Web.ViewModels.ProductViewModels;
 
     public class HomeViewModel

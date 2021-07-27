@@ -21,11 +21,20 @@
         public string Name { get; set; }
 
         [Required]
+        [MaxLength(MaxProductDescriptionLength)]
         public string Description { get; set; }
 
         public bool IsAvailable { get; set; }
 
+        [Range(MinProductRateLength, MaxProductRateLength)]
         public int Rate { get; set; }
+
+        [Required]
+        [Url]
+        public string ImageUrl { get; set; }
+
+        [Range(00.1,10000)]
+        public decimal Price { get; set; }
 
         public virtual IEnumerable<Image> Images { get; set; }
 

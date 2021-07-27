@@ -20,7 +20,7 @@
             this.categoryService = categoryService;
         }
 
-        [Authorize]
+        [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
         public IActionResult Add()
         {
             return this.View(new AddProductInputModel
@@ -29,7 +29,7 @@
             });
         }
 
-        [Authorize]
+        [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Add(AddProductInputModel product)
         {

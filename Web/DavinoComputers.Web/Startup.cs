@@ -12,6 +12,7 @@
     using DavinoComputers.Services.HomeServices;
     using DavinoComputers.Services.Mapping;
     using DavinoComputers.Services.Messaging;
+    using DavinoComputers.Services.PcBuildsServices;
     using DavinoComputers.Services.ProductServices;
     using DavinoComputers.Web.ViewModels;
 
@@ -69,6 +70,7 @@
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IPcBuildService, PcBuildService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

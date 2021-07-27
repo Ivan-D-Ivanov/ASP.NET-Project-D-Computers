@@ -28,6 +28,7 @@
                               new RolesSeeder(),
                               new CategorySeeder(),
                               new SubCategorySeeder(),
+                              new AdministratorSeeder(),
                           };
 
             foreach (var seeder in seeders)

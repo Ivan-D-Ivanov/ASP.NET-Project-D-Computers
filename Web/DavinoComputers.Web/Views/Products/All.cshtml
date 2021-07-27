@@ -8,7 +8,7 @@
 
 
 <form method="get">
-    <div class="row float-left mb-3 mr-2 border-bottom">
+    <div class="row col-sm-4 col-md-4 col-lg-3 float-left mb-3 mr-2 border-bottom">
         <div class="col-12">
             <div class="form-group">
                 <label asp-for="SearchTerm"></label>
@@ -52,8 +52,8 @@
 <div class="row">
     @foreach (var product in Model.Products)
     {
-        <div class="media col-md-4 col-lg-4 mb-5">
-            <img src="@product.ImageUrl" width="140" class="mr-3 p-2">
+        <div class="media col-md-6 col-lg-4 col-sm-6 mb-5">
+            <img src="@product.ImageUrl" class="mr-3 p-2 w-50 mx-auto">
             <div class="media-body align-text-top">
                 <a href="/Products/Index?id=@product.Id" class="mt-0" style="color:black">@product.Brand @product.Model</a>
                 <h6 class="mt-2">@product.CategoryName</h6>
