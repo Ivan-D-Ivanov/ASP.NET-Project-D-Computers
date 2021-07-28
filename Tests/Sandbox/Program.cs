@@ -5,6 +5,7 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using CommandLine;
     using DavinoComputers.Data;
     using DavinoComputers.Data.Common;
     using DavinoComputers.Data.Common.Repositories;
@@ -12,9 +13,6 @@
     using DavinoComputers.Data.Repositories;
     using DavinoComputers.Data.Seeding;
     using DavinoComputers.Services.Messaging;
-
-    using CommandLine;
-
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;

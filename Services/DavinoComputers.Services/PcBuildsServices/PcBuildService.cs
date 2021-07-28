@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using DavinoComputers.Data;
     using DavinoComputers.Data.Common.Repositories;
     using DavinoComputers.Data.Models;
     using DavinoComputers.Web.ViewModels.PcBuildViewModels;
@@ -13,16 +14,18 @@
     {
         private readonly IDeletableEntityRepository<Product> productRepo;
         private readonly IDeletableEntityRepository<PcBuild> pcbuildRepo;
+        private readonly ApplicationDbContext data;
 
-        public PcBuildService(IDeletableEntityRepository<Product> productRepo, IDeletableEntityRepository<PcBuild> pcbuildRepo)
+        public PcBuildService(IDeletableEntityRepository<Product> productRepo, IDeletableEntityRepository<PcBuild> pcbuildRepo, ApplicationDbContext data)
         {
             this.productRepo = productRepo;
             this.pcbuildRepo = pcbuildRepo;
+            this.data = data;
         }
 
         public async Task CreatePcBuild(AddPcBuildInputModel pcbuild)
         {
-            var cpu = this.productRepo.All().FirstOrDefault(p => p.Id == pcbuild.ProductCPU);
+            var cpudata = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductCPU);
             var gpu = this.productRepo.All().FirstOrDefault(p => p.Id == pcbuild.ProductGPU);
             var ram = this.productRepo.All().FirstOrDefault(p => p.Id == pcbuild.ProductRAM);
             var motherBoard = this.productRepo.All().FirstOrDefault(p => p.Id == pcbuild.ProductMotherBoard);
@@ -31,7 +34,7 @@
 
             var products = new HashSet<Product>();
 
-            products.Add(cpu);
+            products.Add(cpudata);
             products.Add(gpu);
             products.Add(ram);
             products.Add(motherBoard);

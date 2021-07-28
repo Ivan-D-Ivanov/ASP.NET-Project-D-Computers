@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\DavinoComputers.Data\DavinoComputers.Data.csproj" />
     <ProjectReference Include="..\..\Web\DavinoComputers.Web.ViewModels\DavinoComputers.Web.ViewModels.csproj" />
   </ItemGroup>
 
