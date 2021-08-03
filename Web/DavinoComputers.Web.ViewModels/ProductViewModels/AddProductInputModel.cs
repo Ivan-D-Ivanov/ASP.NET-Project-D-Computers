@@ -9,7 +9,7 @@
     public class AddProductInputModel
     {
         [Required]
-        [StringLength(MaxProductModelLength,MinimumLength = MinProductModelLength)]
+        [StringLength(MaxProductModelLength, MinimumLength = MinProductModelLength)]
         public string Model { get; set; }
 
         [Required]

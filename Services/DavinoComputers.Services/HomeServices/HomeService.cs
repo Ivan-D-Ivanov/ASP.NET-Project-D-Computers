@@ -3,29 +3,27 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using DavinoComputers.Data.Common.Repositories;
-    using DavinoComputers.Data.Models;
+    using DavinoComputers.Data;
     using DavinoComputers.Web.ViewModels.ProductViewModels;
 
     public class HomeService : IHomeService
     {
-        private readonly IDeletableEntityRepository<Product> productsRepository;
+        private readonly ApplicationDbContext data;
 
-
-        public HomeService(IDeletableEntityRepository<Product> productsRepository)
+        public HomeService(ApplicationDbContext data)
         {
-            this.productsRepository = productsRepository;
+            this.data = data;
         }
 
         public int TotalProducts()
         {
-            var allProducts = this.productsRepository.AllAsNoTracking().Count();
+            var allProducts = this.data.Products.AsQueryable().Count();
             return allProducts;
         }
 
         public List<ProductInListViewModel> ListProductsForCarousel()
         {
-            var lastThreeProducts = this.productsRepository.AllAsNoTracking()
+            var lastThreeProducts = this.data.Products.AsQueryable()
                 .OrderByDescending(p => p)
                 .Take(3)
                 .Select(p => new ProductInListViewModel

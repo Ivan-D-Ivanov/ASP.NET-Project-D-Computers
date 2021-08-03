@@ -4,26 +4,22 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using DavinoComputers.Data.Common.Repositories;
+    using DavinoComputers.Data;
     using DavinoComputers.Data.Models;
     using DavinoComputers.Web.ViewModels.ProductViewModels;
 
     public class ProductService : IProductService
     {
-        private readonly IDeletableEntityRepository<Product> productsRepository;
-        private readonly IDeletableEntityRepository<SubCategory> subCategory;
-        private readonly IDeletableEntityRepository<Category> categories;
+        private readonly ApplicationDbContext data;
 
-        public ProductService(IDeletableEntityRepository<Product> productsRepository, IDeletableEntityRepository<SubCategory> subCategory, IDeletableEntityRepository<Category> categories)
+        public ProductService(ApplicationDbContext data)
         {
-            this.productsRepository = productsRepository;
-            this.subCategory = subCategory;
-            this.categories = categories;
+            this.data = data;
         }
 
         public IEnumerable<string> GetBrands()
         {
-            return this.productsRepository.AllAsNoTracking()
+            return this.data.Products.AsQueryable()
                 .Select(p => p.Brand)
                 .Distinct()
                 .ToList();
@@ -42,13 +38,13 @@
                 SubCategoryId = product.SubCategoryId,
             };
 
-            await this.productsRepository.AddAsync(newProduct);
-            await this.productsRepository.SaveChangesAsync();
+            await this.data.Products.AddAsync(newProduct);
+            await this.data.SaveChangesAsync();
         }
 
         public IndexProductViewModel GetProducById(int id)
         {
-            var product = this.productsRepository.All().FirstOrDefault(p => p.Id == id);
+            var product = this.data.Products.FirstOrDefault(p => p.Id == id);
 
             if (product == null)
             {
@@ -70,11 +66,11 @@
 
         public IEnumerable<ProductInListViewModel> ListAllProducts(string searchTerm, string brand, string category, string subCategory)
         {
-            var productQuery = this.productsRepository.AllAsNoTracking();
+            var productQuery = this.data.Products.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(category))
             {
-                var categoryId = this.categories.All().FirstOrDefault(c => c.Name == category);
+                var categoryId = this.data.Categories.FirstOrDefault(c => c.Name == category);
                 if (categoryId != null)
                 {
                     productQuery = productQuery.Where(p => p.SubCategory.CategoryId == categoryId.Id);
@@ -83,7 +79,7 @@
 
             if (!string.IsNullOrWhiteSpace(subCategory))
             {
-                var subCategoryId = this.subCategory.All().FirstOrDefault(c => c.Name == subCategory);
+                var subCategoryId = this.data.SubCategories.FirstOrDefault(c => c.Name == subCategory);
                 if (subCategoryId != null)
                 {
                     productQuery = productQuery.Where(p => p.SubCategory.Id == subCategoryId.Id);

@@ -33,7 +33,7 @@
         [Url]
         public string ImageUrl { get; set; }
 
-        [Range(00.1,10000)]
+        [Range(00.1, 10000)]
         public decimal Price { get; set; }
 
         public virtual IEnumerable<Image> Images { get; set; }

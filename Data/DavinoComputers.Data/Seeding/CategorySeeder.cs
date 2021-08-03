@@ -15,7 +15,7 @@
                 return;
             }
 
-            await dbContext.Categories.AddAsync(new Category { Name = "Hardware"});
+            await dbContext.Categories.AddAsync(new Category { Name = "Hardware" });
             await dbContext.Categories.AddAsync(new Category { Name = "Accessories" });
             await dbContext.Categories.AddAsync(new Category { Name = "PcBuilds" });
 

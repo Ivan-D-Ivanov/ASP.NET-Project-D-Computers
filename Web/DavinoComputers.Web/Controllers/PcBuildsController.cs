@@ -43,8 +43,7 @@
         [HttpPost]
         public async Task<IActionResult> Add(AddPcBuildInputModel pcbuild)
         {
-            //TODO Ifs
-
+            // TODO Ifs
             if (!this.pcbuildService.GetCpuProducts().Any(p => p.Id == pcbuild.ProductCPU))
             {
                 this.ModelState.AddModelError(nameof(pcbuild.ProductCPU), "This kind of product doesn't exist");

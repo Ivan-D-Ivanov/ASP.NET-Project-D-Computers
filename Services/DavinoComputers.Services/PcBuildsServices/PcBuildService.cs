@@ -5,32 +5,27 @@
     using System.Threading.Tasks;
 
     using DavinoComputers.Data;
-    using DavinoComputers.Data.Common.Repositories;
     using DavinoComputers.Data.Models;
     using DavinoComputers.Web.ViewModels.PcBuildViewModels;
     using DavinoComputers.Web.ViewModels.ProductViewModels;
 
     public class PcBuildService : IPcBuildService
     {
-        private readonly IDeletableEntityRepository<Product> productRepo;
-        private readonly IDeletableEntityRepository<PcBuild> pcbuildRepo;
         private readonly ApplicationDbContext data;
 
-        public PcBuildService(IDeletableEntityRepository<Product> productRepo, IDeletableEntityRepository<PcBuild> pcbuildRepo, ApplicationDbContext data)
+        public PcBuildService(ApplicationDbContext data)
         {
-            this.productRepo = productRepo;
-            this.pcbuildRepo = pcbuildRepo;
             this.data = data;
         }
 
         public async Task CreatePcBuild(AddPcBuildInputModel pcbuild)
         {
             var cpudata = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductCPU);
-            var gpu = this.productRepo.All().FirstOrDefault(p => p.Id == pcbuild.ProductGPU);
-            var ram = this.productRepo.All().FirstOrDefault(p => p.Id == pcbuild.ProductRAM);
-            var motherBoard = this.productRepo.All().FirstOrDefault(p => p.Id == pcbuild.ProductMotherBoard);
-            var powerSupply = this.productRepo.All().FirstOrDefault(p => p.Id == pcbuild.ProductPowerSupply);
-            var computerCase = this.productRepo.All().FirstOrDefault(p => p.Id == pcbuild.ProductComputerCase);
+            var gpu = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductGPU);
+            var ram = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductRAM);
+            var motherBoard = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductMotherBoard);
+            var powerSupply = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductPowerSupply);
+            var computerCase = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductComputerCase);
 
             var products = new HashSet<Product>();
 
@@ -51,19 +46,19 @@
                 Products = products,
             };
 
-            await this.pcbuildRepo.AddAsync(newPcBUild);
-            await this.pcbuildRepo.SaveChangesAsync();
+            await this.data.PcBuilds.AddAsync(newPcBUild);
+            await this.data.SaveChangesAsync();
         }
 
         public AddPcBuildInputModel GetPcBuildById(string id)
         {
-            //To Implement by autoMapper!!!
+            // To Implement by autoMapper!!!
             return new AddPcBuildInputModel();
         }
 
         public IEnumerable<PcBuildProductsInputModel> GetComputerCaseProducts()
         {
-            return this.productRepo.All()
+            return this.data.Products
                 .Where(p => p.SubCategory.Name == "Computer Cases")
                 .Select(p => new PcBuildProductsInputModel
                 {
@@ -76,7 +71,7 @@
 
         public IEnumerable<PcBuildProductsInputModel> GetCpuProducts()
         {
-            return this.productRepo.All()
+            return this.data.Products
                 .Where(p => p.SubCategory.Name == "CPU")
                 .Select(p => new PcBuildProductsInputModel
                 {
@@ -89,7 +84,7 @@
 
         public IEnumerable<PcBuildProductsInputModel> GetGpuProducts()
         {
-            return this.productRepo.All()
+            return this.data.Products
                 .Where(p => p.SubCategory.Name == "GPU")
                 .Select(p => new PcBuildProductsInputModel
                 {
@@ -102,7 +97,7 @@
 
         public IEnumerable<PcBuildProductsInputModel> GetMotherBoardProducts()
         {
-            return this.productRepo.All()
+            return this.data.Products
                  .Where(p => p.SubCategory.Name == "Mother Boards")
                  .Select(p => new PcBuildProductsInputModel
                  {
@@ -115,7 +110,7 @@
 
         public IEnumerable<PcBuildProductsInputModel> GetPowerSupplyProducts()
         {
-            return this.productRepo.All()
+            return this.data.Products
                 .Where(p => p.SubCategory.Name == "Power Supply")
                 .Select(p => new PcBuildProductsInputModel
                 {
@@ -128,7 +123,7 @@
 
         public IEnumerable<PcBuildProductsInputModel> GetRamProducts()
         {
-            return this.productRepo.All()
+            return this.data.Products
                  .Where(p => p.SubCategory.Name == "RAM")
                  .Select(p => new PcBuildProductsInputModel
                  {
@@ -141,7 +136,7 @@
 
         public IEnumerable<PcBuildInListModel> ListAllPcBuilds()
         {
-            return this.pcbuildRepo.AllAsNoTracking()
+            return this.data.PcBuilds.AsQueryable()
                 .Select(pc => new PcBuildInListModel
                 {
                      Id = pc.Id,

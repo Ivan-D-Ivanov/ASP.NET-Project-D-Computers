@@ -31,7 +31,7 @@
 
         public decimal Price { get; set; }
 
-        [Range(MinProductRateLength,MaxProductRateLength)]
+        [Range(MinProductRateLength, MaxProductRateLength)]
         public int Rate { get; set; }
 
         [Required]
