@@ -1,8 +1,6 @@
 ﻿namespace DavinoComputers.Web.ViewModels.PcBuildViewModels
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
 
     using DavinoComputers.Web.ViewModels.ProductViewModels;
 

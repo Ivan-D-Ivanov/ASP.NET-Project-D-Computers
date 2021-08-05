@@ -1,7 +1,5 @@
 ﻿namespace DavinoComputers.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -28,7 +26,7 @@
         [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
         public IActionResult Add()
         {
-            return this.View(new AddPcBuildInputModel
+            return this.View(new AddPcBuildFormModel
             {
                 CpuProducts = this.pcbuildService.GetCpuProducts(),
                 GpuProducts = this.pcbuildService.GetGpuProducts(),
@@ -41,7 +39,7 @@
 
         [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
         [HttpPost]
-        public async Task<IActionResult> Add(AddPcBuildInputModel pcbuild)
+        public async Task<IActionResult> Add(AddPcBuildFormModel pcbuild)
         {
             // TODO Ifs
             if (!this.pcbuildService.GetCpuProducts().Any(p => p.Id == pcbuild.ProductCPU))
@@ -69,10 +67,19 @@
             return this.View(listPcBuilds);
         }
 
-        public IActionResult Edit(string id)
+        [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
+        public IActionResult Edit(int id)
         {
             var pcbuild = this.pcbuildService.GetPcBuildById(id);
-            return this.View();
+            return this.View(pcbuild);
+        }
+
+        [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
+        [HttpPost]
+        public IActionResult Edit(int id, AddPcBuildFormModel pcbuild)
+        {
+            this.pcbuildService.EditPcBuild(id, pcbuild);
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

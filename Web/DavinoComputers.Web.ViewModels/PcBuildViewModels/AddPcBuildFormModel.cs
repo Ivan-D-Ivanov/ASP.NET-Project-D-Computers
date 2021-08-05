@@ -3,14 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
-
-    using DavinoComputers.Data.Models;
-    using DavinoComputers.Web.ViewModels.ProductViewModels;
 
     using static DavinoComputers.Common.GlobalConstants;
 
-    public class AddPcBuildInputModel
+    public class AddPcBuildFormModel
     {
         [Required]
         [StringLength(MaxProductModelLength, MinimumLength = MinProductModelLength)]

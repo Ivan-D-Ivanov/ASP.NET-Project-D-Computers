@@ -13,7 +13,7 @@
         <div class="media col-md-6 col-lg-4 col-sm-6 mb-4">
             <img src="@pcbuilds.ImageUrl" class="mr-3 p-2 w-50 mx-auto">
             <div class="media-body align-text-top">
-                <a href="/PcBuilds/index?id=@pcbuilds.Id" class="mt-0 font-weight-bold" style="color:black">@pcbuilds.Name</a>
+                <a href="/PcBuilds/Details?id=@pcbuilds.Id" class="mt-0 font-weight-bold" style="color:black">@pcbuilds.Name</a>
                 @foreach (var product in pcbuilds.Products)
                 {
                     <p><small class="text-muted"> - @product.Brand @product.Model</small></p>

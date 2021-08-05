@@ -25,7 +25,7 @@
                 .ToList();
         }
 
-        public async Task CreateProduct(AddProductInputModel product)
+        public async Task CreateProduct(AddProductFormModel product)
         {
             var newProduct = new Product
             {
@@ -42,7 +42,7 @@
             await this.data.SaveChangesAsync();
         }
 
-        public IndexProductViewModel GetProducById(int id)
+        public ProductDetailsViewModel GetProducById(int id)
         {
             var product = this.data.Products.FirstOrDefault(p => p.Id == id);
 
@@ -51,7 +51,7 @@
                 return null;
             }
 
-            return new IndexProductViewModel
+            return new ProductDetailsViewModel
             {
                 Id = product.Id,
                 Model = product.Model,

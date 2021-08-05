@@ -9,10 +9,10 @@
     {
         IEnumerable<ProductInListViewModel> ListAllProducts(string searchTerm, string brand, string category, string subCategory);
 
-        Task CreateProduct(AddProductInputModel product);
+        Task CreateProduct(AddProductFormModel product);
 
         IEnumerable<string> GetBrands();
 
-        IndexProductViewModel GetProducById(int id);
+        ProductDetailsViewModel GetProducById(int id);
     }
 }

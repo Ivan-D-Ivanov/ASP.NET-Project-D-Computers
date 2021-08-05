@@ -6,7 +6,7 @@
 
     using static DavinoComputers.Common.GlobalConstants;
 
-    public class AddProductInputModel
+    public class AddProductFormModel
     {
         [Required]
         [StringLength(MaxProductModelLength, MinimumLength = MinProductModelLength)]

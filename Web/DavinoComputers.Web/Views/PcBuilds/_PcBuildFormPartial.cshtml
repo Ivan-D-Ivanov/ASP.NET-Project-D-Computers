@@ -1,0 +1,89 @@
+﻿@model AddPcBuildFormModel
+
+<div class="row">
+    <div class="offset-md-3 col-md-6 col-sm-12">
+        <form method="post">
+           
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" id="exampleFormControlInput1" placeholder="Ryzen, I-7 and etc...">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Type some info for the currnet product..."></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control" id="exampleFormControlInput1" placeholder="Cash in BGN...">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsAvailable"></label>
+                <input asp-for="IsAvailable" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" id="exampleFormControlInput1" placeholder="The shortest URL for the image..">
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductCPU"></label>
+                <select asp-for="ProductCPU" class="form-control">
+                    @foreach (var product in Model.CpuProducts)
+                    {
+                        <option value="@product.Id">@product.Brand @product.Model</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductGPU"></label>
+                <select asp-for="ProductGPU" class="form-control">
+                    @foreach (var product in Model.GpuProducts)
+                    {
+                        <option value="@product.Id">@product.Brand @product.Model</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductMotherBoard"></label>
+                <select asp-for="ProductMotherBoard" class="form-control">
+                    @foreach (var product in Model.MotherBoardProducts)
+                    {
+                        <option value="@product.Id">@product.Brand @product.Model</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductRAM"></label>
+                <select asp-for="ProductRAM" class="form-control">
+                    @foreach (var product in Model.RamProducts)
+                    {
+                        <option value="@product.Id">@product.Brand @product.Model</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductPowerSupply"></label>
+                <select asp-for="ProductPowerSupply" class="form-control">
+                    @foreach (var product in Model.PowerSupplyProducts)
+                    {
+                        <option value="@product.Id">@product.Brand @product.Model</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductComputerCase"></label>
+                <select asp-for="ProductComputerCase" class="form-control">
+                    @foreach (var product in Model.ComputerCasesProducts)
+                    {
+                        <option value="@product.Id">@product.Brand @product.Model</option>
+                    }
+                </select>
+            </div>
+            <input type="submit" class="btn btn-success btn-lg" />
+        </form>
+    </div>
+</div>

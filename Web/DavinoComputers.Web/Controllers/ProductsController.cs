@@ -23,7 +23,7 @@
         [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
         public IActionResult Add()
         {
-            return this.View(new AddProductInputModel
+            return this.View(new AddProductFormModel
             {
                 SubCategories = this.categoryService.GetSubCategories(),
             });
@@ -31,7 +31,7 @@
 
         [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
         [HttpPost]
-        public async Task<IActionResult> Add(AddProductInputModel product)
+        public async Task<IActionResult> Add(AddProductFormModel product)
         {
             if (!this.categoryService.GetSubCategories().Any(c => c.Id == product.SubCategoryId))
             {
@@ -62,7 +62,7 @@
             return this.View(productsListingViewModel);
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Details(int id)
         {
             var product = this.productService.GetProducById(id);
 

@@ -1,14 +1,12 @@
 ﻿namespace DavinoComputers.Web.ViewModels.ProductViewModels
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
 
     using DavinoComputers.Data.Models;
 
-    public class IndexProductViewModel
+    public class ProductDetailsViewModel
     {
-        public IndexProductViewModel()
+        public ProductDetailsViewModel()
         {
             this.Comments = new HashSet<Comment>();
         }

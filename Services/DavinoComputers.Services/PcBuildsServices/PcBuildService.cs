@@ -8,6 +8,7 @@
     using DavinoComputers.Data.Models;
     using DavinoComputers.Web.ViewModels.PcBuildViewModels;
     using DavinoComputers.Web.ViewModels.ProductViewModels;
+    using Microsoft.EntityFrameworkCore;
 
     public class PcBuildService : IPcBuildService
     {
@@ -18,9 +19,9 @@
             this.data = data;
         }
 
-        public async Task CreatePcBuild(AddPcBuildInputModel pcbuild)
+        public async Task CreatePcBuild(AddPcBuildFormModel pcbuild)
         {
-            var cpudata = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductCPU);
+            var cpu = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductCPU);
             var gpu = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductGPU);
             var ram = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductRAM);
             var motherBoard = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductMotherBoard);
@@ -29,7 +30,7 @@
 
             var products = new HashSet<Product>();
 
-            products.Add(cpudata);
+            products.Add(cpu);
             products.Add(gpu);
             products.Add(ram);
             products.Add(motherBoard);
@@ -50,10 +51,71 @@
             await this.data.SaveChangesAsync();
         }
 
-        public AddPcBuildInputModel GetPcBuildById(string id)
+        public void EditPcBuild(int id, AddPcBuildFormModel pcbuild)
+        {
+            var currnetPcBuild = this.data.PcBuilds.Find(id);
+
+            currnetPcBuild.Name = pcbuild.Name;
+            currnetPcBuild.Description = pcbuild.Description;
+            currnetPcBuild.IsAvailable = pcbuild.IsAvailable;
+            currnetPcBuild.Price = pcbuild.Price;
+            currnetPcBuild.ImageUrl = pcbuild.ImageUrl;
+
+            var cpu = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductCPU);
+            var gpu = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductGPU);
+            var ram = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductRAM);
+            var motherBoard = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductMotherBoard);
+            var powerSupply = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductPowerSupply);
+            var computerCase = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductComputerCase);
+
+            var products = new HashSet<Product>();
+            products.Add(cpu);
+            products.Add(gpu);
+            products.Add(ram);
+            products.Add(motherBoard);
+            products.Add(powerSupply);
+            products.Add(computerCase);
+            currnetPcBuild.Products = products;
+
+            this.data.SaveChanges();
+        }
+
+        public AddPcBuildFormModel GetPcBuildById(int id)
         {
             // To Implement by autoMapper!!!
-            return new AddPcBuildInputModel();
+            var pcbuild = this.data.PcBuilds
+                .Include(d => d.Products)
+                .ThenInclude(d => d.SubCategory)
+                .Where(pc => pc.Id == id)
+                .FirstOrDefault();
+
+            int productCpuId = pcbuild.Products.Where(p => p.SubCategory.Name == "CPU").Select(p => p.Id).FirstOrDefault();
+            int productGpuId = pcbuild.Products.Where(p => p.SubCategory.Name == "GPU").Select(p => p.Id).FirstOrDefault();
+            int productRamId = pcbuild.Products.Where(p => p.SubCategory.Name == "RAM").Select(p => p.Id).FirstOrDefault();
+            int productMbId = pcbuild.Products.Where(p => p.SubCategory.Name == "Mother Boards").Select(p => p.Id).FirstOrDefault();
+            int productPsId = pcbuild.Products.Where(p => p.SubCategory.Name == "Power Supply").Select(p => p.Id).FirstOrDefault();
+            int productCaseId = pcbuild.Products.Where(p => p.SubCategory.Name == "Computer Cases").Select(p => p.Id).FirstOrDefault();
+
+            return new AddPcBuildFormModel
+            {
+                Name = pcbuild.Name,
+                Description = pcbuild.Description,
+                IsAvailable = pcbuild.IsAvailable,
+                Price = pcbuild.Price,
+                ImageUrl = pcbuild.ImageUrl,
+                ProductCPU = productCpuId,
+                ProductGPU = productGpuId,
+                ProductRAM = productRamId,
+                ProductMotherBoard = productMbId,
+                ProductPowerSupply = productPsId,
+                ProductComputerCase = productCaseId,
+                CpuProducts = this.GetCpuProducts(),
+                GpuProducts = this.GetGpuProducts(),
+                MotherBoardProducts = this.GetMotherBoardProducts(),
+                RamProducts = this.GetRamProducts(),
+                PowerSupplyProducts = this.GetPowerSupplyProducts(),
+                ComputerCasesProducts = this.GetComputerCaseProducts(),
+            };
         }
 
         public IEnumerable<PcBuildProductsInputModel> GetComputerCaseProducts()

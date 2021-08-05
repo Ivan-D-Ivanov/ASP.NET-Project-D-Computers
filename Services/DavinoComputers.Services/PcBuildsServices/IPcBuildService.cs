@@ -19,10 +19,12 @@
 
         IEnumerable<PcBuildProductsInputModel> GetComputerCaseProducts();
 
-        Task CreatePcBuild(AddPcBuildInputModel pcbuild);
+        Task CreatePcBuild(AddPcBuildFormModel pcbuild);
 
         IEnumerable<PcBuildInListModel> ListAllPcBuilds();
 
-        AddPcBuildInputModel GetPcBuildById(string id);
+        AddPcBuildFormModel GetPcBuildById(int id);
+
+        void EditPcBuild(int id, AddPcBuildFormModel pcbuild);
     }
 }
