@@ -44,10 +44,10 @@
 
         public virtual SubCategory SubCategory { get; set; }
 
-        public virtual IEnumerable<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
-        public virtual IEnumerable<Image> Images { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
 
-        public virtual IEnumerable<PcBuild> PcBuilds { get; set; }
+        public virtual ICollection<PcBuild> PcBuilds { get; set; }
     }
 }

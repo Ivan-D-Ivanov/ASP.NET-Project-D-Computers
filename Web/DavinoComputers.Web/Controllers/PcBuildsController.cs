@@ -71,6 +71,11 @@
         public IActionResult Edit(int id)
         {
             var pcbuild = this.pcbuildService.GetPcBuildById(id);
+            if (pcbuild == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(pcbuild);
         }
 
@@ -78,6 +83,11 @@
         [HttpPost]
         public IActionResult Edit(int id, AddPcBuildFormModel pcbuild)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(pcbuild);
+            }
+
             this.pcbuildService.EditPcBuild(id, pcbuild);
             return this.RedirectToAction(nameof(this.All));
         }

@@ -36,10 +36,10 @@
         [Range(00.1, 10000)]
         public decimal Price { get; set; }
 
-        public virtual IEnumerable<Image> Images { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
 
-        public virtual IEnumerable<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
 
-        public virtual IEnumerable<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

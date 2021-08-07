@@ -25,6 +25,6 @@
 
         AddPcBuildFormModel GetPcBuildById(int id);
 
-        void EditPcBuild(int id, AddPcBuildFormModel pcbuild);
+        bool EditPcBuild(int id, AddPcBuildFormModel pcbuild);
     }
 }

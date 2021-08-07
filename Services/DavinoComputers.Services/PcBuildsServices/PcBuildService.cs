@@ -51,9 +51,14 @@
             await this.data.SaveChangesAsync();
         }
 
-        public void EditPcBuild(int id, AddPcBuildFormModel pcbuild)
+        public bool EditPcBuild(int id, AddPcBuildFormModel pcbuild)
         {
-            var currnetPcBuild = this.data.PcBuilds.Find(id);
+            var currnetPcBuild = this.data.PcBuilds.Include(pc => pc.Products).FirstOrDefault(pc => pc.Id == id);
+
+            if (currnetPcBuild == null)
+            {
+                return false;
+            }
 
             currnetPcBuild.Name = pcbuild.Name;
             currnetPcBuild.Description = pcbuild.Description;
@@ -61,6 +66,7 @@
             currnetPcBuild.Price = pcbuild.Price;
             currnetPcBuild.ImageUrl = pcbuild.ImageUrl;
 
+            currnetPcBuild.Products.Clear();
             var cpu = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductCPU);
             var gpu = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductGPU);
             var ram = this.data.Products.FirstOrDefault(p => p.Id == pcbuild.ProductRAM);
@@ -77,7 +83,9 @@
             products.Add(computerCase);
             currnetPcBuild.Products = products;
 
+            this.data.Update(currnetPcBuild);
             this.data.SaveChanges();
+            return true;
         }
 
         public AddPcBuildFormModel GetPcBuildById(int id)
