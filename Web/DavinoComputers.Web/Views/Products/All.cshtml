@@ -1,4 +1,4 @@
-﻿@model DavinoComputers.Web.ViewModels.ProductViewModels.ListingProductViewModel
+﻿@model ListingProductViewModel
 @{
     this.ViewData["Title"] = "All Products";
 }
@@ -55,14 +55,15 @@
     <div class="media col-md-6 col-lg-4 col-sm-6 mb-4">
         <img src="@product.ImageUrl" class="mr-3 p-2 w-50 mx-auto">
         <div class="media-body align-text-top">
-            <a href="/products/Details?id=@product.Id" class="mt-0" style="color:black">@product.Brand @product.Model</a>
+            <a asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="mt-0" style="color:black">@product.Brand @product.Model</a>
             <p class="mt-2"><small class="text-muted"> - @product.CategoryName</small></p>
             <h5 class="border-bottom">@product.Price BGN</h5>
-        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-        {
-            <a class="btn btn-warning btn-sm" asp-area="" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" role="button">Edit</a>
-            <a class="btn btn-danger btn-sm" asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" role="button">Delete</a>
-        }
+            <a href="#" class="btn btn-primary btn-sm">Add to cart</a>
+            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                <a class="btn btn-warning btn-sm" asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" role="button">Edit</a>
+                <a class="btn btn-danger btn-sm" asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" role="button">Delete</a>
+            }
         </div>
     </div>
     }

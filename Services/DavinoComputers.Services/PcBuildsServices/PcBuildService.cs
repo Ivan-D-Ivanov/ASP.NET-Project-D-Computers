@@ -126,6 +126,28 @@
             };
         }
 
+        public PcBuildDetailsModel GetPcBuildDetails(int id)
+        {
+            var pcbuild = this.data.PcBuilds.Include(pc => pc.Products).FirstOrDefault(pc => pc.Id == id);
+            if (pcbuild == null)
+            {
+                return null;
+            }
+
+            return new PcBuildDetailsModel
+            {
+                Id = pcbuild.Id,
+                Name = pcbuild.Name,
+                Description = pcbuild.Description,
+                Rate = pcbuild.Rate,
+                IsAvailable = pcbuild.IsAvailable,
+                Price = pcbuild.Price,
+                ImageUrl = pcbuild.ImageUrl,
+                Products = pcbuild.Products,
+                Comments = pcbuild.Comments,
+            };
+        }
+
         public IEnumerable<PcBuildProductsInputModel> GetComputerCaseProducts()
         {
             return this.data.Products
@@ -227,5 +249,6 @@
                 })
                 .ToList();
         }
+
     }
 }

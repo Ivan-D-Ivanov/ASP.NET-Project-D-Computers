@@ -1,7 +1,7 @@
 ﻿@model DavinoComputers.Data.Models.Product
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Details Product";
 }
 
 <h1>Details</h1>
@@ -85,6 +85,6 @@
     </dl>
 </div>
 <div>
-    <a class="text-dark" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a class="text-dark" asp-action="Index">Back to List</a>
+    <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a class="btn btn-primary btn-sm" asp-action="Index">Back to List</a>
 </div>

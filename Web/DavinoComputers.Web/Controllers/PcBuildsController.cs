@@ -91,5 +91,16 @@
             this.pcbuildService.EditPcBuild(id, pcbuild);
             return this.RedirectToAction(nameof(this.All));
         }
+
+        public IActionResult Details(int id)
+        {
+            var pcbuild = this.pcbuildService.GetPcBuildDetails(id);
+            if (pcbuild == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(pcbuild);
+        }
     }
 }

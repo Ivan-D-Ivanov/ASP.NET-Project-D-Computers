@@ -26,5 +26,7 @@
         AddPcBuildFormModel GetPcBuildForm(int id);
 
         bool EditPcBuild(int id, AddPcBuildFormModel pcbuild);
+
+        PcBuildDetailsModel GetPcBuildDetails(int id);
     }
 }

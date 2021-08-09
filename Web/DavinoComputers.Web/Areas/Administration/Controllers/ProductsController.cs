@@ -4,12 +4,10 @@
     using System.Threading.Tasks;
 
     using DavinoComputers.Data;
-    using DavinoComputers.Data.Models;
     using DavinoComputers.Services.CategoryServices;
     using DavinoComputers.Services.ProductServices;
     using DavinoComputers.Web.ViewModels.ProductViewModels;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
     [Area("Administration")]
@@ -81,20 +79,14 @@
         }
 
         // GET: Administration/Products/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return this.NotFound();
-            }
-
-            var product = await this.context.Products.FindAsync(id);
+            var product = this.productService.GetProducForm(id);
             if (product == null)
             {
                 return this.NotFound();
             }
 
-            this.ViewData["SubCategoryId"] = new SelectList(this.context.SubCategories, "Id", "Name", product.SubCategoryId);
             return this.View(product);
         }
 
@@ -102,38 +94,15 @@
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Model,Brand,Description,Price,Rate,ImageUrl,IsAvailable,SubCategoryId,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Product product)
+        public IActionResult Edit(int id, AddProductFormModel product)
         {
-            if (id != product.Id)
+            var isEdited = this.productService.EditProduct(id, product);
+            if (isEdited == false)
             {
                 return this.NotFound();
             }
 
-            if (this.ModelState.IsValid)
-            {
-                try
-                {
-                    this.context.Update(product);
-                    await this.context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!this.ProductExists(product.Id))
-                    {
-                        return this.NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
-                return this.RedirectToAction(nameof(this.Index));
-            }
-
-            this.ViewData["SubCategoryId"] = new SelectList(this.context.SubCategories, "Id", "Name", product.SubCategoryId);
-            return this.View(product);
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         // GET: Administration/Products/Delete/5
