@@ -22,17 +22,6 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-
-                        @if (this.User.IsInRole(DavinoComputers.Common.GlobalConstants.AdministratorRoleName))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Add">Add Product</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="PcBuilds" asp-action="Add">Add Pc Build</a>
-                            </li>
-                        }
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="/Products/All?Category=Hardware" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Hardware

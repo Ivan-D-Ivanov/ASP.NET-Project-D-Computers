@@ -88,7 +88,7 @@
             return true;
         }
 
-        public AddPcBuildFormModel GetPcBuildById(int id)
+        public AddPcBuildFormModel GetPcBuildForm(int id)
         {
             // To Implement by autoMapper!!!
             var pcbuild = this.data.PcBuilds

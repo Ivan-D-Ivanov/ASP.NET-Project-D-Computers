@@ -6,15 +6,18 @@
 
     using DavinoComputers.Data;
     using DavinoComputers.Data.Models;
+    using DavinoComputers.Services.CategoryServices;
     using DavinoComputers.Web.ViewModels.ProductViewModels;
 
     public class ProductService : IProductService
     {
         private readonly ApplicationDbContext data;
+        private readonly ICategoryService categoryService;
 
-        public ProductService(ApplicationDbContext data)
+        public ProductService(ApplicationDbContext data, ICategoryService categoryService)
         {
             this.data = data;
+            this.categoryService = categoryService;
         }
 
         public IEnumerable<string> GetBrands()
@@ -42,7 +45,48 @@
             await this.data.SaveChangesAsync();
         }
 
-        public ProductDetailsViewModel GetProducById(int id)
+        public bool EditProduct(int id, AddProductFormModel product)
+        {
+            var dataProduct = this.data.Products.FirstOrDefault(p => p.Id == id);
+            if (dataProduct == null)
+            {
+                return false;
+            }
+
+            dataProduct.Model = product.Model;
+            dataProduct.Brand = product.Brand;
+            dataProduct.Description = product.Description;
+            dataProduct.Price = product.Price;
+            dataProduct.IsAvailable = product.IsAvailable;
+            dataProduct.ImageUrl = product.ImageUrl;
+            dataProduct.SubCategoryId = product.SubCategoryId;
+
+            this.data.SaveChanges();
+            return true;
+        }
+
+        public AddProductFormModel GetProducForm(int id)
+        {
+            var product = this.data.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
+            {
+                return null;
+            }
+
+            return new AddProductFormModel
+            {
+                Model = product.Model,
+                Brand = product.Brand,
+                Description = product.Description,
+                IsAvailable = product.IsAvailable,
+                Price = product.Price,
+                ImageUrl = product.ImageUrl,
+                SubCategoryId = product.SubCategoryId,
+                SubCategories = this.categoryService.GetSubCategories(),
+            };
+        }
+
+        public ProductDetailsViewModel GetProducDetails(int id)
         {
             var product = this.data.Products.FirstOrDefault(p => p.Id == id);
 
@@ -66,7 +110,7 @@
 
         public IEnumerable<ProductInListViewModel> ListAllProducts(string searchTerm, string brand, string category, string subCategory)
         {
-            var productQuery = this.data.Products.AsQueryable();
+            var productQuery = this.data.Products.AsQueryable().Where(p => p.IsDeleted == false);
 
             if (!string.IsNullOrWhiteSpace(category))
             {

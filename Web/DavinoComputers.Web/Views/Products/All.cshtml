@@ -60,8 +60,8 @@
             <h5 class="border-bottom">@product.Price BGN</h5>
         @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
-            <a class="btn btn-warning btn-sm" asp-area="" asp-controller="Products" asp-action="Edit" role="button">Edit</a>
-            <a class="btn btn-danger btn-sm" asp-area="" asp-controller="Products" asp-action="Delete" role="button">Delete</a>
+            <a class="btn btn-warning btn-sm" asp-area="" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" role="button">Edit</a>
+            <a class="btn btn-danger btn-sm" asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" role="button">Delete</a>
         }
         </div>
     </div>

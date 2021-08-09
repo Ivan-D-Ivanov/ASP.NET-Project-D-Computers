@@ -13,6 +13,10 @@
 
         IEnumerable<string> GetBrands();
 
-        ProductDetailsViewModel GetProducById(int id);
+        ProductDetailsViewModel GetProducDetails(int id);
+
+        AddProductFormModel GetProducForm(int id);
+
+        bool EditProduct(int id, AddProductFormModel product);
     }
 }

@@ -64,7 +64,7 @@
 
         public IActionResult Details(int id)
         {
-            var product = this.productService.GetProducById(id);
+            var product = this.productService.GetProducDetails(id);
 
             if (product == null)
             {
@@ -72,6 +72,31 @@
             }
 
             return this.View(product);
+        }
+
+        [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
+        public IActionResult Edit(int id)
+        {
+            var product = this.productService.GetProducForm(id);
+            if (product == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(product);
+        }
+
+        [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
+        [HttpPost]
+        public IActionResult Edit(int id, AddProductFormModel product)
+        {
+            var isEdited = this.productService.EditProduct(id, product);
+            if (isEdited == false)
+            {
+                return this.NotFound();
+            }
+
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

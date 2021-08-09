@@ -70,7 +70,7 @@
         [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
         public IActionResult Edit(int id)
         {
-            var pcbuild = this.pcbuildService.GetPcBuildById(id);
+            var pcbuild = this.pcbuildService.GetPcBuildForm(id);
             if (pcbuild == null)
             {
                 return this.NotFound();

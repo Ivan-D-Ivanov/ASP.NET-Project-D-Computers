@@ -1,0 +1,64 @@
+﻿@model DavinoComputers.Web.ViewModels.ProductViewModels.AddProductFormModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Product</h4>
+<hr />
+
+<div class="row">
+    <div class="offset-md-3 col-md-6 col-sm-12">
+        <form method="post">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Model"></label>
+                <input asp-for="Model" class="form-control" id="exampleFormControlInput1" placeholder="Ryzen, I-7 and etc...">
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Brand"></label>
+                <input asp-for="Brand" class="form-control" id="exampleFormControlInput1" placeholder="AMD, Intel and etc ...">
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control" rows="4" placeholder="Type some info for the currnet product..."></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control" id="exampleFormControlInput1" placeholder="Cash in BGN...">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsAvailable"></label>
+                <input asp-for="IsAvailable" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" id="exampleFormControlInput1" placeholder="The shortest URL for the image..">
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubCategoryId"></label>
+                <select asp-for="SubCategoryId" class="form-control">
+                    @foreach (var subCategory in Model.SubCategories)
+                    {
+        <option value="@subCategory.Id">@subCategory.Name</option>}
+                </select>
+            </div>
+            <input type="submit" class="btn btn-success btn-lg" />
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

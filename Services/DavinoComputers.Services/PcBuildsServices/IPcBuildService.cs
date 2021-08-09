@@ -23,7 +23,7 @@
 
         IEnumerable<PcBuildInListModel> ListAllPcBuilds();
 
-        AddPcBuildFormModel GetPcBuildById(int id);
+        AddPcBuildFormModel GetPcBuildForm(int id);
 
         bool EditPcBuild(int id, AddPcBuildFormModel pcbuild);
     }
