@@ -78,6 +78,17 @@
             return this.Redirect("/Products/All");
         }
 
+        public IActionResult Hidden()
+        {
+            var hiddenProducts = this.productService.GetDeletedProducts();
+            if (hiddenProducts == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(hiddenProducts);
+        }
+
         // GET: Administration/Products/Edit/5
         public IActionResult Edit(int id)
         {

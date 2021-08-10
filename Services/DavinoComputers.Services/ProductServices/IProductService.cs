@@ -18,5 +18,7 @@
         AddProductFormModel GetProducForm(int id);
 
         bool EditProduct(int id, AddProductFormModel product);
+
+        ICollection<HiddenProductsListViewModel> GetDeletedProducts();
     }
 }

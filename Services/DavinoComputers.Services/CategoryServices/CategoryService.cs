@@ -26,7 +26,7 @@
 
         public IEnumerable<string> GetCategories()
         {
-            return this.data.Categories.AsQueryable().Select(c => c.Name).ToList();
+            return this.data.Categories.AsQueryable().Where(c => c.Name != "PcBuilds").Select(c => c.Name).ToList();
         }
     }
 }

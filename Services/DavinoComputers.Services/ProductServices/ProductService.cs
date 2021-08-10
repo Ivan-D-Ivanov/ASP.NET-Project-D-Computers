@@ -8,6 +8,7 @@
     using DavinoComputers.Data.Models;
     using DavinoComputers.Services.CategoryServices;
     using DavinoComputers.Web.ViewModels.ProductViewModels;
+    using Microsoft.EntityFrameworkCore;
 
     public class ProductService : IProductService
     {
@@ -158,6 +159,34 @@
                 .ToList();
 
             return products;
+        }
+
+        //ToDO
+        public ICollection<HiddenProductsListViewModel> GetDeletedProducts()
+        {
+            var deletedProducts = this.data.Products
+                .AsQueryable()
+                .Include(p => p.SubCategory)
+                .Where(p => p.IsDeleted == true)
+                .Select(p => new HiddenProductsListViewModel
+                {
+                    Id = p.Id,
+                    Brand = p.Brand,
+                    Model = p.Model,
+                    Description = p.Description,
+                    Price = p.Price,
+                    ImageUrl = p.ImageUrl,
+                    IsAvailable = p.IsAvailable,
+                    DeletedOn = p.DeletedOn.ToString(),
+                    CategoryName = p.SubCategory.Name,
+                }).ToList();
+
+            if (deletedProducts.Count <= 0)
+            {
+                return null;
+            }
+
+            return deletedProducts;
         }
     }
 }

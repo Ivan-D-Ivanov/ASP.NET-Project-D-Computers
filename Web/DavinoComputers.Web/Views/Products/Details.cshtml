@@ -1,9 +1,15 @@
-﻿@model DavinoComputers.Web.ViewModels.ProductViewModels.ProductDetailsViewModel
+﻿@model ProductDetailsViewModel
 @{
     this.ViewData["Title"] = "Product Index";
 }
 
-
+<div class="row">
+    <a class="mr-2 ml-3" asp-controller="Home" asp-action="Index">Home</a>
+    <p class="mr-2">></p>
+    <a class="mr-2" asp-controller="Products" asp-action="All">Products</a>
+    <p class="mr-2">></p>
+    <a class="mr-2" asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id">@Model.Brand @Model.Model</a>
+</div>
 <div class="card mb-3">
     <img src="@Model.ImageUrl" class="card-img-top m-1 p-5 w-50 mx-auto">
     <div class="card-body">
@@ -12,6 +18,9 @@
         <p class="card-text"><small class="text-muted">@Model.Rate</small></p>
         <h5 class="card-title border-bottom">Price: @Model.Price BGN </h5>
     </div>
-    <a href="#" class="btn btn-primary">Add to cart</a>
+    @if (Model.IsAvailable == true)
+    {
+        <a href="#" class="btn btn-primary btn-sm">Add to cart</a>
+    }
 </div>
 

@@ -3,6 +3,11 @@
     this.ViewData["Title"] = "All Products";
 }
 
+<div class="row">
+    <a class="mr-2 ml-3" asp-controller="Home" asp-action="Index">Home</a>
+    <p class="mr-2">></p>
+    <a class="mr-2" asp-controller="Products" asp-action="All">Products</a>
+</div>
 <h1 class="text-center">All Products</h1>
 <hr />
 
@@ -58,7 +63,10 @@
             <a asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="mt-0" style="color:black">@product.Brand @product.Model</a>
             <p class="mt-2"><small class="text-muted"> - @product.CategoryName</small></p>
             <h5 class="border-bottom">@product.Price BGN</h5>
-            <a href="#" class="btn btn-primary btn-sm">Add to cart</a>
+            @if (product.IsAvailable == true)
+            {
+                <a href="#" class="btn btn-primary btn-sm">Add to cart</a>
+            }
             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 <a class="btn btn-warning btn-sm" asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" role="button">Edit</a>

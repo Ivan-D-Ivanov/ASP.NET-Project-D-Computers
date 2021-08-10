@@ -4,6 +4,13 @@
     this.ViewData["Title"] = "Pc Build Details";
 }
 
+<div class="row">
+    <a class="mr-2 ml-3" asp-controller="Home" asp-action="Index">Home</a>
+    <p class="mr-2">></p>
+    <a class="mr-2" asp-controller="PcBuilds" asp-action="All">PcBuilds</a>
+    <p class="mr-2">></p>
+    <a class="mr-2" asp-controller="PcBuilds" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a>
+</div>
 
 <div class="card mb-3">
     <img class="card-img-top w-50 mx-auto" src="@Model.ImageUrl" alt="@Model.Name">
@@ -17,14 +24,14 @@
     </div>
 </div>
 
-<h1 class="text-left mt-5">Components :</h1>
+<h1 class="text-left mt-5">Components</h1>
 <div class="table-responsive">
     <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col">Brand</th>
                 <th scope="col">Model</th>
-                <th scope="col">Is Available</th>
+                <th scope="col">Available</th>
                 <th scope="col">Price</th>
                 <th scope="col">Rate</th>
                 <th scope="col">Image Url</th>
@@ -36,11 +43,11 @@
                 <tr>
                     <td>@product.Brand</td>
                     <td>@product.Model</td>
-                    <td>@product.IsAvailable</td>
+                    <td>@(product.IsAvailable == true ? "Yes" : "No")</td>
                     <td>@product.Price BGN</td>
                     <td>@product.Rate</td>
                     <td><img class="img-thumbnail w-25 mx-auto" src="@product.ImageUrl" /></td>
-                    <td><a class="btn btn-info" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">Details</a></td>
+                    <td><a class="btn btn-info" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" target="_blank">Details</a></td>
                 </tr>
             }
         </tbody>

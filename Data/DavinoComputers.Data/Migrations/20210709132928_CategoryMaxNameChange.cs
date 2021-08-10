@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace DavinoComputers.Data.Migrations
+﻿namespace DavinoComputers.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class CategoryMaxNameChange : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -12,7 +12,7 @@ namespace DavinoComputers.Data.Migrations
                 type: "nvarchar(20)",
                 maxLength: 20,
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
                 oldNullable: true);
