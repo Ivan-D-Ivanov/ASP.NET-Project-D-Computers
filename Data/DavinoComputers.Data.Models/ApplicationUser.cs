@@ -17,6 +17,7 @@ namespace DavinoComputers.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.ShoppingCart = new ShoppingCart();
         }
 
         // Audit info
@@ -29,7 +30,6 @@ namespace DavinoComputers.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        [ForeignKey("ShoppingCart")]
         public int ShoppingCartId { get; set; }
 
         public ShoppingCart ShoppingCart { get; set; }

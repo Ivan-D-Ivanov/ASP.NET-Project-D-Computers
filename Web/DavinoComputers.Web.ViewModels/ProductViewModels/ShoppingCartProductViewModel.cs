@@ -1,13 +1,17 @@
 ﻿namespace DavinoComputers.Web.ViewModels.ProductViewModels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
-    public class ShoppingCartProductViewModel : ProductInListViewModel
+    public class ShoppingCartProductViewModel
     {
-        public string ApplicationUsername { get; set; }
+        public int Id { get; set; }
+
+        public string Model { get; set; }
+
+        public string Brand { get; set; }
+
+        public decimal Price { get; set; }
+
+        public int Quantity { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }

@@ -20,7 +20,7 @@
     </div>
     @if (Model.IsAvailable == true)
     {
-        <a href="#" class="btn btn-primary btn-sm">Add to cart</a>
+        <a asp-area="" asp-controller="ShoppingCarts" asp-action="AddProductToCart" asp-route-productId="@Model.Id" class="btn btn-primary btn-sm">Add to cart</a>
     }
 </div>
 

@@ -14,6 +14,7 @@
     using DavinoComputers.Services.Messaging;
     using DavinoComputers.Services.PcBuildsServices;
     using DavinoComputers.Services.ProductServices;
+    using DavinoComputers.Services.ShoppingCartServices;
     using DavinoComputers.Web.ViewModels;
 
     using Microsoft.AspNetCore.Builder;
@@ -71,6 +72,7 @@
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IPcBuildService, PcBuildService>();
+            services.AddTransient<IShoppingCartService, ShoppingCartService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

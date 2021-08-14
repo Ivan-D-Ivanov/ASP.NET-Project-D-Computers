@@ -23,7 +23,7 @@
                     <p><small class="text-muted"> - @product.Brand @product.Model</small></p>
                 }
                 <h5 class="border-bottom">@pcbuilds.Price BGN</h5>
-                <a href="#" class="btn btn-primary btn-sm">Add to cart</a>
+                <a asp-area="" asp-controller="ShoppingCarts" asp-action="AddPcBuildToCart" asp-route-pcbuildId="@pcbuilds.Id" class="btn btn-primary btn-sm">Add to cart</a>
                 @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {
                     <a class="btn btn-warning btn-sm" asp-area="" asp-controller="PcBuilds" asp-action="Edit" asp-route-id="@pcbuilds.Id" button">Edit</a>
