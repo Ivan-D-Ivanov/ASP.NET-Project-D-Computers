@@ -161,7 +161,7 @@
             return products;
         }
 
-        //ToDO
+        // ToDO
         public ICollection<HiddenProductsListViewModel> GetDeletedProducts()
         {
             var deletedProducts = this.data.Products

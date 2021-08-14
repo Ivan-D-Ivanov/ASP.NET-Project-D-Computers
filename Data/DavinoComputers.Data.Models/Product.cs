@@ -15,6 +15,7 @@
             this.Comments = new HashSet<Comment>();
             this.Images = new HashSet<Image>();
             this.PcBuilds = new HashSet<PcBuild>();
+            this.ShoppingCarts = new HashSet<ShoppingCart>();
         }
 
         [Required]
@@ -49,5 +50,7 @@
         public virtual ICollection<Image> Images { get; set; }
 
         public virtual ICollection<PcBuild> PcBuilds { get; set; }
+
+        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

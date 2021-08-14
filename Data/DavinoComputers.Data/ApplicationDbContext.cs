@@ -60,6 +60,18 @@
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
+            builder.Entity<ShoppingCart>()
+                .HasOne(x => x.ApplicationUser)
+                .WithOne(x => x.ShoppingCart)
+                .HasForeignKey<ApplicationUser>(x => x.ShoppingCartId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUser>()
+                .HasOne(x => x.ShoppingCart)
+                .WithOne(x => x.ApplicationUser)
+                .HasForeignKey<ShoppingCart>(x => x.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             this.ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);

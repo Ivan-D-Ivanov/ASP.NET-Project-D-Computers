@@ -3,6 +3,7 @@ namespace DavinoComputers.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using DavinoComputers.Data.Common.Models;
 
@@ -27,6 +28,11 @@ namespace DavinoComputers.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        [ForeignKey("ShoppingCart")]
+        public int ShoppingCartId { get; set; }
+
+        public ShoppingCart ShoppingCart { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
