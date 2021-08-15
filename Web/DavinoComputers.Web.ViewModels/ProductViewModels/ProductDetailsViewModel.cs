@@ -6,11 +6,6 @@
 
     public class ProductDetailsViewModel
     {
-        public ProductDetailsViewModel()
-        {
-            this.Comments = new HashSet<Comment>();
-        }
-
         public int Id { get; set; }
 
         public string Model { get; set; }
@@ -21,12 +16,10 @@
 
         public decimal Price { get; set; }
 
-        public int Rate { get; set; }
+        public double AverageVote { get; set; }
 
         public string ImageUrl { get; set; }
 
         public bool IsAvailable { get; set; }
-
-        public IEnumerable<Comment> Comments { get; set; }
     }
 }

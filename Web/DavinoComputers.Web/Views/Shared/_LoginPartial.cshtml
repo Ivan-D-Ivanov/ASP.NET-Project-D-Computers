@@ -13,12 +13,6 @@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="ShoppingCarts" asp-action="Index" title="Manage">Shopping Cart</a>
         </li>
-        @*if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
-            </li>
-        }*@
         @if (this.User.IsInRole(DavinoComputers.Common.GlobalConstants.AdministratorRoleName))
         {
            <li class="nav-item">

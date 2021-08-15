@@ -89,7 +89,7 @@
 
         public ProductDetailsViewModel GetProducDetails(int id)
         {
-            var product = this.data.Products.FirstOrDefault(p => p.Id == id);
+            var product = this.data.Products.Include(x => x.Votes).FirstOrDefault(p => p.Id == id);
 
             if (product == null)
             {
@@ -103,7 +103,7 @@
                 Brand = product.Brand,
                 Description = product.Description,
                 IsAvailable = product.IsAvailable,
-                Rate = product.Rate,
+                AverageVote = product.Votes.Count() > 0 ? product.Votes.Average(v => v.Value) : 1,
                 Price = product.Price,
                 ImageUrl = product.ImageUrl,
             };
@@ -150,7 +150,6 @@
                     Model = p.Model,
                     Brand = p.Brand,
                     Description = p.Description,
-                    Rate = p.Rate,
                     Price = p.Price,
                     ImageUrl = p.ImageUrl,
                     IsAvailable = p.IsAvailable,

@@ -12,10 +12,10 @@
     {
         public Product()
         {
-            this.Comments = new HashSet<Comment>();
             this.Images = new HashSet<Image>();
             this.PcBuilds = new HashSet<PcBuild>();
             this.ShoppingCarts = new HashSet<ShoppingCart>();
+            this.Votes = new HashSet<Vote>();
         }
 
         [Required]
@@ -32,9 +32,6 @@
 
         public decimal Price { get; set; }
 
-        [Range(MinProductRateLength, MaxProductRateLength)]
-        public int Rate { get; set; }
-
         [Required]
         [Url]
         public string ImageUrl { get; set; }
@@ -45,12 +42,12 @@
 
         public virtual SubCategory SubCategory { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
-
         public virtual ICollection<Image> Images { get; set; }
 
         public virtual ICollection<PcBuild> PcBuilds { get; set; }
 
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
+
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

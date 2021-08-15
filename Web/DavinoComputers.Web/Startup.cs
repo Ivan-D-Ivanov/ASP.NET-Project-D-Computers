@@ -15,6 +15,7 @@
     using DavinoComputers.Services.PcBuildsServices;
     using DavinoComputers.Services.ProductServices;
     using DavinoComputers.Services.ShoppingCartServices;
+    using DavinoComputers.Services.VotesServices;
     using DavinoComputers.Web.ViewModels;
 
     using Microsoft.AspNetCore.Builder;
@@ -58,6 +59,10 @@
                     }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
 
             services.AddSingleton(this.configuration);
 
@@ -73,6 +78,7 @@
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IPcBuildService, PcBuildService>();
             services.AddTransient<IShoppingCartService, ShoppingCartService>();
+            services.AddTransient<IVoteService, VoteService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -144,7 +144,6 @@
                 Price = pcbuild.Price,
                 ImageUrl = pcbuild.ImageUrl,
                 Products = pcbuild.Products,
-                Comments = pcbuild.Comments,
             };
         }
 

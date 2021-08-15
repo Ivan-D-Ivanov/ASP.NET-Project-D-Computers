@@ -17,7 +17,7 @@
     <div class="card-body">
         <h5 class="card-title">@Model.Name</h5>
         <p class="card-text">@Model.Description</p>
-        <div class="row">
+        <div class="row mt-3">
             <h2 class="card-text border-bottom ml-3 mr-3">@Model.Price BGN</h2>
             <a asp-area="" asp-controller="ShoppingCarts" asp-action="AddPcBuildToCart" asp-route-pcbuildId="@Model.Id" class="btn btn-primary btn-sm">Add to cart</a>
         </div>
@@ -33,7 +33,6 @@
                 <th scope="col">Model</th>
                 <th scope="col">Available</th>
                 <th scope="col">Price</th>
-                <th scope="col">Rate</th>
                 <th scope="col">Image Url</th>
             </tr>
         </thead>
@@ -45,7 +44,6 @@
                     <td>@product.Model</td>
                     <td>@(product.IsAvailable == true ? "Yes" : "No")</td>
                     <td>@product.Price BGN</td>
-                    <td>@product.Rate</td>
                     <td><img class="img-thumbnail w-25 mx-auto" src="@product.ImageUrl" /></td>
                     <td><a class="btn btn-info" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" target="_blank">Details</a></td>
                 </tr>

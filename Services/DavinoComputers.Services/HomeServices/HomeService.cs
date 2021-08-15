@@ -34,7 +34,6 @@
                     IsAvailable = p.IsAvailable,
                     Description = p.Description,
                     ImageUrl = p.ImageUrl,
-                    Rate = p.Rate,
                     Price = p.Price,
                     CategoryName = p.SubCategory.Name,
                 })

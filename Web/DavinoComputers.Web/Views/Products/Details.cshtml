@@ -15,12 +15,45 @@
     <div class="card-body">
         <h5 class="card-title border-bottom">@Model.Brand @Model.Model</h5>
         <p class="card-text">@Model.Description</p>
-        <p class="card-text"><small class="text-muted">@Model.Rate</small></p>
-        <h5 class="card-title border-bottom">Price: @Model.Price BGN </h5>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <a class="fa fa-star checked" data-vote="1"></a>
+        <a class="fa fa-star checked" data-vote="2"></a>
+        <a class="fa fa-star checked" data-vote="3"></a>
+        <a class="fa fa-star checked" data-vote="4"></a>
+        <a class="fa fa-star checked" data-vote="5"></a>
+        <span class="ml-2" id="averageVoteValue">@Model.AverageVote.ToString("0.0")</span><span>/ 5</span>
+        <h5 class="card-title border-bottom mt-3">Price: @Model.Price BGN </h5>
     </div>
     @if (Model.IsAvailable == true)
     {
         <a asp-area="" asp-controller="ShoppingCarts" asp-action="AddProductToCart" asp-route-productId="@Model.Id" class="btn btn-primary btn-sm">Add to cart</a>
     }
 </div>
+<form method="post" id="antiForgeryForm"></form>
+@section Scripts { 
+    <script>
+        $("a[data-vote]").each(function (el) {
+            $(this).click(function () {
+                var value = ($(this).attr("data-vote"));
+                var productId = @Model.Id;
+                var antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
+                var data = { productId: productId, value: value };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/Votes/Post",
+                    data: JSON.stringify(data),
+                    headers: {
+                        'X-CSRF-TOKEN': antiForgeryToken
+                    },
+                    success: function (data) {
+                        $('#averageVoteValue').html(data.averageVote.toFixed(1));
+                    },
+                    contentType: 'application/json' ,
+                })
+            })
+        });
+    </script>
+}
 

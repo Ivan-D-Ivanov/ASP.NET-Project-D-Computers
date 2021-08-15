@@ -4,14 +4,16 @@ using DavinoComputers.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DavinoComputers.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210815075234_AddedVotes")]
+    partial class AddedVotes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,6 +175,44 @@ namespace DavinoComputers.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("DavinoComputers.Data.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PcBuildId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PcBuildId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("DavinoComputers.Data.Models.Image", b =>
                 {
                     b.Property<string>("Id")
@@ -302,6 +342,9 @@ namespace DavinoComputers.Data.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
 
                     b.Property<int>("SubCategoryId")
                         .HasColumnType("int");
@@ -564,6 +607,31 @@ namespace DavinoComputers.Data.Migrations
                     b.ToTable("ProductShoppingCart");
                 });
 
+            modelBuilder.Entity("DavinoComputers.Data.Models.Comment", b =>
+                {
+                    b.HasOne("DavinoComputers.Data.Models.PcBuild", "PcBuild")
+                        .WithMany("Comments")
+                        .HasForeignKey("PcBuildId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DavinoComputers.Data.Models.Product", "Product")
+                        .WithMany("Comments")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DavinoComputers.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("PcBuild");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DavinoComputers.Data.Models.Image", b =>
                 {
                     b.HasOne("DavinoComputers.Data.Models.PcBuild", "PcBuild")
@@ -748,11 +816,15 @@ namespace DavinoComputers.Data.Migrations
 
             modelBuilder.Entity("DavinoComputers.Data.Models.PcBuild", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Images");
                 });
 
             modelBuilder.Entity("DavinoComputers.Data.Models.Product", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Images");
 
                     b.Navigation("Votes");

@@ -9,7 +9,6 @@
 <p>
     <a class="btn btn-primary btn-sm" asp-action="Create">Create New Product</a>
     <a class="btn btn-primary btn-sm" asp-area="" asp-controller="PcBuilds" asp-action="Add">Create New PcBuild</a>
-    <a class="btn btn-primary btn-sm" asp-action="Hidden">Deleted products</a>
 </p>
 <div class="table-responsive">
     <table class="table table-striped">
@@ -23,9 +22,6 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Rate)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.IsAvailable)
@@ -54,9 +50,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsAvailable)

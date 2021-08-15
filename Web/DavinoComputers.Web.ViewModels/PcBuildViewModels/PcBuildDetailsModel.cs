@@ -25,7 +25,5 @@
         public int Rate { get; set; }
 
         public ICollection<Product> Products { get; set; }
-
-        public ICollection<Comment> Comments { get; set; }
     }
 }

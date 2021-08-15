@@ -12,7 +12,6 @@
         public PcBuild()
         {
             this.Products = new HashSet<Product>();
-            this.Comments = new HashSet<Comment>();
             this.Images = new HashSet<Image>();
             this.ShoppingCarts = new HashSet<ShoppingCart>();
         }
@@ -40,8 +39,6 @@
         public virtual ICollection<Image> Images { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
-
-        public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }
