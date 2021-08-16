@@ -49,17 +49,18 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        public IActionResult All(string searchTerm, string brand, string category, string subCategory)
+        public IActionResult All(ListingProductViewModel query)
         {
-            var productsListingViewModel = new ListingProductViewModel
-            {
-                Products = this.productService.ListAllProducts(searchTerm, brand, category, subCategory),
-                SearchTerm = searchTerm,
-                Brands = this.productService.GetBrands(),
-                Categories = this.categoryService.GetCategories(),
-                SubCategories = this.categoryService.GetSubCategories().Select(s => s.Name),
-            };
-            return this.View(productsListingViewModel);
+            const int itemsPerPage = 9;
+            var productsResult = this.productService.ListAllProducts(query.SearchTerm, query.Brand, query.Category, query.SubCategory, query.PageNumber, itemsPerPage);
+
+            query.ItemsPerPage = itemsPerPage;
+            query.Products = productsResult.Products;
+            query.ProductsCount = productsResult.ProductsCount;
+            query.Brands = this.productService.GetBrands();
+            query.Categories = this.categoryService.GetCategories();
+            query.SubCategories = this.categoryService.GetSubCategories().Select(s => s.Name);
+            return this.View(query);
         }
 
         public IActionResult Details(int id)

@@ -7,6 +7,7 @@
     using DavinoComputers.Data;
     using DavinoComputers.Data.Models;
     using DavinoComputers.Services.CategoryServices;
+    using DavinoComputers.Services.ProductServices.Models;
     using DavinoComputers.Web.ViewModels.ProductViewModels;
     using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,11 @@
         {
             this.data = data;
             this.categoryService = categoryService;
+        }
+
+        public int GetCount()
+        {
+            return this.data.Products.Count();
         }
 
         public IEnumerable<string> GetBrands()
@@ -109,7 +115,13 @@
             };
         }
 
-        public IEnumerable<ProductInListViewModel> ListAllProducts(string searchTerm, string brand, string category, string subCategory)
+        public AllProductsServiceModel ListAllProducts(
+            string searchTerm = null,
+            string brand = null,
+            string category = null,
+            string subCategory = null,
+            int currentPage = 1,
+            int itemsPerPage = int.MaxValue)
         {
             var productQuery = this.data.Products.AsQueryable().Where(p => p.IsDeleted == false);
 
@@ -142,8 +154,12 @@
                 productQuery = productQuery.Where(p => p.Brand == brand);
             }
 
+            var totalProduct = productQuery.Count();
+
             var products = productQuery
                 .OrderByDescending(p => p.CreatedOn)
+                .Skip((currentPage - 1) * itemsPerPage)
+                .Take(itemsPerPage)
                 .Select(p => new ProductInListViewModel
                 {
                     Id = p.Id,
@@ -157,7 +173,13 @@
                 })
                 .ToList();
 
-            return products;
+            return new AllProductsServiceModel
+            {
+                ProductsCount = totalProduct,
+                PageNumber = currentPage,
+                ItemsPerPage = itemsPerPage,
+                Products = products,
+            };
         }
 
         // ToDO

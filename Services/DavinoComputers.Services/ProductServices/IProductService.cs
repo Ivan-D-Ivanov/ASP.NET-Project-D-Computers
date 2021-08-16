@@ -3,11 +3,12 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using DavinoComputers.Services.ProductServices.Models;
     using DavinoComputers.Web.ViewModels.ProductViewModels;
 
     public interface IProductService
     {
-        IEnumerable<ProductInListViewModel> ListAllProducts(string searchTerm, string brand, string category, string subCategory);
+        AllProductsServiceModel ListAllProducts(string searchTerm, string brand, string category, string subCategory, int currentPage, int itemsPerPage);
 
         Task CreateProduct(AddProductFormModel product);
 
@@ -20,5 +21,7 @@
         bool EditProduct(int id, AddProductFormModel product);
 
         ICollection<HiddenProductsListViewModel> GetDeletedProducts();
+
+        int GetCount();
     }
 }

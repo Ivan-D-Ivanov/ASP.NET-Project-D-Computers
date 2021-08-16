@@ -1,6 +1,10 @@
-﻿@{ 
+﻿@{
     this.ViewData["Title"] = "Edit PcBuild";
 }
 
 <h1 class="text-center">Edit Pc Build</h1>
 <partial name="_PcBuildFormPartial" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -53,42 +53,93 @@
     </div>
 </form>
 
-
-<div class="row">
-    @foreach (var product in Model.Products)
-    {
-    <div class="media col-md-6 col-lg-4 col-sm-6 mb-4">
-        <img src="@product.ImageUrl" class="rounded mr-3 p-2 w-50 mx-auto">
-        <div class="media-body align-text-top">
-            <a asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="mt-0" style="color:black">@product.Brand @product.Model</a>
-            <p class="mt-2"><small class="text-muted"> - @product.CategoryName</small></p>
-            <h5 class="border-bottom">@product.Price BGN</h5>
-            @if (product.IsAvailable == true)
-            {
-                <a asp-area="" asp-controller="ShoppingCarts" asp-action="AddProductToCart" asp-route-productId="@product.Id" class="btn btn-primary btn-sm">Add to cart</a>
-            }
-            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-            {
-                <a class="btn btn-warning btn-sm" asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" role="button">Edit</a>
-                <a class="btn btn-danger btn-sm" asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" role="button">Delete</a>
-            }
+@if (Model.Products.Count() < 1)
+	{
+		 <h1 class="text-center">No Products Found...</h1>
+}
+else
+{
+    <div class="row">
+        @foreach (var product in Model.Products)
+        {
+        <div class="media col-md-6 col-lg-4 col-sm-6 mb-4">
+            <img src="@product.ImageUrl" class="rounded mr-3 p-2 w-50 mx-auto">
+            <div class="media-body align-text-top">
+                <a asp-controller="Products" asp-action="Details" asp-route-Id="@product.Id" class="mt-0" style="color:black">@product.Brand @product.Model</a>
+                <p class="mt-2"><small class="text-muted"> - @product.CategoryName</small></p>
+                <h5 class="border-bottom">@product.Price BGN</h5>
+                @if (product.IsAvailable == true)
+                {
+                    <a asp-area="" asp-controller="ShoppingCarts" asp-action="AddProductToCart" asp-route-productId="@product.Id" class="btn btn-primary btn-sm">Add to cart</a>
+                }
+                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                {
+                    <a class="btn btn-warning btn-sm" asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" role="button">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" role="button">Delete</a>
+                }
+            </div>
         </div>
+        }
     </div>
-    }
-</div>
+}
 
 <div class="mb-2"></div>
 
-<nav aria-label="Page navigation example">
+<nav aria-label="...">
     <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        <li class="page-item @(Model.HasPreviusPage ? string.Empty : "disabled")">
+            <a class="page-link" 
+               asp-action="All" 
+               asp-route-searchTerm="@Model.SearchTerm"
+               asp-route-brand="@Model.Brand"
+               asp-route-category="@Model.Category"
+               asp-route-subCategory="@Model.SubCategory"
+               asp-route-pageNumber="@Model.PreviusPageNumber" >Previous</a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
+        @for (int i = Model.PageNumber - 2; i < Model.PageNumber; i++)
+        {
+            if (i > 0)
+            {
+                <li class="page-item">
+                    <a class="page-link" 
+                       asp-action="All" 
+                       asp-route-searchTerm="@Model.SearchTerm"
+                       asp-route-brand="@Model.Brand"
+                       asp-route-category="@Model.Category"
+                       asp-route-subCategory="@Model.SubCategory"
+                       asp-route-pageNumber="@i">@i</a>
+                </li>
+            }
+        }
+        <li class="page-item active" aria-current="page">
+            <span class="page-link" href="#">
+                @Model.PageNumber
+                <span class="sr-only">(current)</span>
+            </span>
+        </li>
+        @for (int i = Model.PageNumber + 1; i <= Model.PageNumber + 2; i++)
+        {
+            if (i <= Model.PagesCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" 
+                       asp-action="All" 
+                       asp-route-searchTerm="@Model.SearchTerm"
+                       asp-route-brand="@Model.Brand"
+                       asp-route-category="@Model.Category"
+                       asp-route-subCategory="@Model.SubCategory"
+                       asp-route-pageNumber="@i">@i</a>
+                </li>
+            }
+        }
+        <li class="page-item @(Model.HasNextPage ? string.Empty : "disabled")">
+            <a class="page-link" 
+               asp-action="All" 
+               asp-route-searchTerm="@Model.SearchTerm"
+               asp-route-brand="@Model.Brand"
+               asp-route-category="@Model.Category"
+               asp-route-subCategory="@Model.SubCategory"
+               asp-route-pageNumber="@Model.NextPageNumber">Next</a>
         </li>
     </ul>
 </nav>
