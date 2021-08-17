@@ -70,7 +70,7 @@ else
                 <h5 class="border-bottom">@product.Price BGN</h5>
                 @if (product.IsAvailable == true)
                 {
-                    <a asp-area="" asp-controller="ShoppingCarts" asp-action="AddProductToCart" asp-route-productId="@product.Id" class="btn btn-primary btn-sm">Add to cart</a>
+                    <a asp-area="" asp-controller="ShoppingCarts" asp-action="AddProductToCart" asp-route-productId="@product.Id" asp-route-name="@(product.Brand+" "+product.Model)" class="btn btn-primary btn-sm">Add to cart</a>
                 }
                 @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {

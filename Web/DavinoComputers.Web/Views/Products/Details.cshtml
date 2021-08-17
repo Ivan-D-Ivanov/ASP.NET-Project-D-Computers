@@ -27,7 +27,7 @@
     </div>
     @if (Model.IsAvailable == true)
     {
-        <a asp-area="" asp-controller="ShoppingCarts" asp-action="AddProductToCart" asp-route-productId="@Model.Id" class="btn btn-primary btn-sm">Add to cart</a>
+        <a asp-area="" asp-controller="ShoppingCarts" asp-action="AddProductToCart" asp-route-productId="@Model.Id" asp-route-name="@(Model.Brand +" "+ Model.Model)" class="btn btn-primary btn-sm">Add to cart</a>
     }
 </div>
 <form method="post" id="antiForgeryForm"></form>

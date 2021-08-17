@@ -73,16 +73,16 @@
         </div>
     </div>
     <div class="col-lg-4 height-280">
-        <div class="mobile-fondsize-20 text-center h4">Информация за поръчката:</div>
+        <div class="mobile-fondsize-20 text-center h4">Order information :</div>
 
         <div class="mt-4">
-            <p class="font-weight-bold text-danger h5 mt-3">Обща сума за продуктите: @(Model.Products.Sum(x=>x.Price) + Model.PcBuilds.Sum(x => x.Price))лв.</p>
+            <p class="font-weight-bold text-danger h5 mt-3">Summary: @(Model.Products.Sum(x=>x.Price) + Model.PcBuilds.Sum(x => x.Price)) BGN.</p>
         </div>
 
         <div class="text-right mt-3 mb-3">
-            <a asp-controller="Orders" asp-action="Create" class="form-group btn btn-success btn-lg btn-block mb-0">Продължи с поръчката</a>
+            <a class="form-group btn btn-success btn-lg btn-block mb-0">Proceed to checkout</a>
         </div>
-        <p class="text-danger h6 text-right">В цената не е влючена доставка.</p>
-        <p class="text-danger h6 text-right">В процеса на поръчка може да изберете предпочитания от вас доставчик.</p>
+        <p class="text-danger h6 text-right">Delivery is not included in the price.</p>
+        <p class="text-danger h6 text-right">In the ordering process you can choose your preferred supplier.</p>
     </div>
 </div>

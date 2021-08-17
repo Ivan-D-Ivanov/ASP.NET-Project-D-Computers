@@ -4,6 +4,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using static DavinoComputers.Web.WebConstants;
+
     [Authorize]
     public class ShoppingCartsController : BaseController
     {
@@ -26,7 +28,7 @@
             return this.View(shoppingCart);
         }
 
-        public IActionResult AddProductToCart(int productId)
+        public IActionResult AddProductToCart(int productId, string name)
         {
             var username = this.User.Identity.Name;
             var result = this.shoppingCartService.AddProduct(username, productId);
@@ -40,10 +42,11 @@
                 return this.Redirect(this.Request.Headers["Referer"].ToString());
             }
 
+            this.TempData[GlobalMessageKey] = $"{name} have been added successfully!";
             return this.Redirect(this.Request.Headers["Referer"].ToString());
         }
 
-        public IActionResult AddPcBuildToCart(int pcbuildId)
+        public IActionResult AddPcBuildToCart(int pcbuildId, string name)
         {
             var username = this.User.Identity.Name;
             var result = this.shoppingCartService.AddPcBuild(username, pcbuildId);
@@ -56,6 +59,8 @@
             {
                 return this.Redirect(this.Request.Headers["Referer"].ToString());
             }
+
+            this.TempData[GlobalMessageKey] = $"{name} have been added successfully!";
 
             return this.Redirect(this.Request.Headers["Referer"].ToString());
         }
