@@ -225,7 +225,7 @@
                  .ToList();
         }
 
-        public IEnumerable<PcBuildInListModel> ListAllPcBuilds()
+        public ICollection<PcBuildInListModel> ListAllPcBuilds()
         {
             return this.data.PcBuilds.AsQueryable()
                 .Select(pc => new PcBuildInListModel

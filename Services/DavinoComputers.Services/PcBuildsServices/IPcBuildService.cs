@@ -21,7 +21,7 @@
 
         Task CreatePcBuild(AddPcBuildFormModel pcbuild);
 
-        IEnumerable<PcBuildInListModel> ListAllPcBuilds();
+        ICollection<PcBuildInListModel> ListAllPcBuilds();
 
         AddPcBuildFormModel GetPcBuildForm(int id);
 

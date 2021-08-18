@@ -20,35 +20,6 @@
             this.categoryService = categoryService;
         }
 
-        [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
-        public IActionResult Add()
-        {
-            return this.View(new AddProductFormModel
-            {
-                SubCategories = this.categoryService.GetSubCategories(),
-            });
-        }
-
-        [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
-        [HttpPost]
-        public async Task<IActionResult> Add(AddProductFormModel product)
-        {
-            if (!this.categoryService.GetSubCategories().Any(c => c.Id == product.SubCategoryId))
-            {
-                this.ModelState.AddModelError(nameof(product.SubCategoryId), "This kind of category doesn't exist");
-            }
-
-            if (!this.ModelState.IsValid)
-            {
-                product.SubCategories = this.categoryService.GetSubCategories();
-                return this.View(product);
-            }
-
-            await this.productService.CreateProduct(product);
-
-            return this.RedirectToAction(nameof(this.All));
-        }
-
         public IActionResult All(ListingProductViewModel query)
         {
             const int itemsPerPage = 9;
@@ -73,31 +44,6 @@
             }
 
             return this.View(product);
-        }
-
-        [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
-        public IActionResult Edit(int id)
-        {
-            var product = this.productService.GetProducForm(id);
-            if (product == null)
-            {
-                return this.NotFound();
-            }
-
-            return this.View(product);
-        }
-
-        [Authorize(Roles = Common.GlobalConstants.AdministratorRoleName)]
-        [HttpPost]
-        public IActionResult Edit(int id, AddProductFormModel product)
-        {
-            var isEdited = this.productService.EditProduct(id, product);
-            if (isEdited == false)
-            {
-                return this.NotFound();
-            }
-
-            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

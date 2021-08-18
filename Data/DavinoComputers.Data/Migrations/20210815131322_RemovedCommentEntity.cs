@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace DavinoComputers.Data.Migrations
+﻿namespace DavinoComputers.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class RemovedCommentEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,7 +36,7 @@ namespace DavinoComputers.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PcBuildId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                 },
                 constraints: table =>
                 {

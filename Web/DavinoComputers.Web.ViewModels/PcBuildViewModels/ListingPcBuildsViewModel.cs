@@ -6,6 +6,6 @@
 
     public class ListingPcBuildsViewModel
     {
-        public IEnumerable<PcBuildInListModel> PcBuilds { get; set; }
+        public ICollection<PcBuildInListModel> PcBuilds { get; set; }
     }
 }
