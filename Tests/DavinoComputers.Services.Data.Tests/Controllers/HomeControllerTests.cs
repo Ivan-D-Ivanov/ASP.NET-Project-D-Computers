@@ -1,15 +1,9 @@
 ﻿namespace DavinoComputers.Services.Data.Tests.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using DavinoComputers.Services.HomeServices;
     using DavinoComputers.Web.Controllers;
     using DavinoComputers.Web.ViewModels;
     using DavinoComputers.Web.ViewModels.HomeViewModels;
-    using Microsoft.AspNetCore.Mvc;
     using MyTested.AspNetCore.Mvc;
     using Xunit;
 

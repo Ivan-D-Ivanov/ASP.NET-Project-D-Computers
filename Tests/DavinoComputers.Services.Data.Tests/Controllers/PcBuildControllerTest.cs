@@ -1,5 +1,4 @@
-﻿
-namespace DavinoComputers.Services.Data.Tests.Controllers
+﻿namespace DavinoComputers.Services.Data.Tests.Controllers
 {
     using DavinoComputers.Services.CategoryServices;
     using DavinoComputers.Services.PcBuildsServices;

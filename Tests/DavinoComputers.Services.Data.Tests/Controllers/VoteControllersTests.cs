@@ -36,8 +36,7 @@
             .WithSet<Vote>(s => s.Any(
                 v => v.ProductId == productId &&
                 v.Value == value &&
-                v.UserId == TestUser.Identifier)
-            ))
+                v.UserId == TestUser.Identifier)))
             .AndAlso()
             .ShouldReturn()
             .Object();

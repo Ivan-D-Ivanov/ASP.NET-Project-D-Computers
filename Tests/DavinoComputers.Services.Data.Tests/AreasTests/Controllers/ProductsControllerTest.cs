@@ -1,10 +1,5 @@
 ﻿namespace DavinoComputers.Web.Areas.Administration.Controllers
 {
-    using System.Linq;
-
-    using DavinoComputers.Data.Models;
-    using DavinoComputers.Services.CategoryServices;
-    using DavinoComputers.Services.ProductServices;
     using DavinoComputers.Web.ViewModels.ProductViewModels;
     using MyTested.AspNetCore.Mvc;
     using Xunit;
@@ -51,6 +46,5 @@
             .ShouldReturn()
             .View(v => v
                 .WithModelOfType<AddProductFormModel>());
-
     }
 }
