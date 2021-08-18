@@ -1,6 +1,6 @@
-﻿namespace DavinoComputers.Services.Data.Tests.Controllers
+﻿
+namespace DavinoComputers.Services.Data.Tests.Controllers
 {
-
     using DavinoComputers.Services.CategoryServices;
     using DavinoComputers.Services.PcBuildsServices;
     using DavinoComputers.Services.ProductServices;
@@ -9,10 +9,11 @@
     using MyTested.AspNetCore.Mvc;
     using Xunit;
 
-    using static DavinoComputers.Services.Data.Tests.Data.TestPcBuildData;
-    using static DavinoComputers.Services.Data.Tests.Data.OneWholePcBuildCorrectFormData;
-    using static DavinoComputers.Services.Data.Tests.Data.TestSubCategoriesData;
     using static System.Net.WebRequestMethods;
+
+    using static DavinoComputers.Services.Data.Tests.Data.OneWholePcBuildCorrectFormData;
+    using static DavinoComputers.Services.Data.Tests.Data.TestPcBuildData;
+    using static DavinoComputers.Services.Data.Tests.Data.TestSubCategoriesData;
 
     public class PcBuildControllerTest
     {
