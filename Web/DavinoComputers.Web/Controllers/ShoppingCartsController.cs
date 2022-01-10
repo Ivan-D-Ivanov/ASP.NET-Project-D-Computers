@@ -39,6 +39,7 @@
 
             if (result == "Cant duplicate products")
             {
+                this.TempData[GlobalMessageKey] = $"{name} is already in your shopping cart!";
                 return this.Redirect(this.Request.Headers["Referer"].ToString());
             }
 
