@@ -24,8 +24,11 @@
     </div>
 </div>
 
-<h1 class="text-left mt-5">Components</h1>
-<div class="table-responsive">
+<h1 class="text-left mt-5">
+    <a id="btnName" class="btn btn-primary btn-lg" onclick="showElements()">Show components ...</a>
+</h1>
+<div id="showComponents" class="table-responsive" hidden>
+    <h1>Components :</h1>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -51,3 +54,12 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function showElements() {
+        let componentsElements = document.getElementById('showComponents');
+        componentsElements.removeAttribute("hidden");
+        let showBtn = document.getElementById('btnName');
+        showBtn.textContent = '';
+    }
+</script>
